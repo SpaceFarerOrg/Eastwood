@@ -19,7 +19,7 @@ public:
 	void Render(sf::RenderWindow* aRenderWindow);
 
 	void Push(CState* aNewState);
-	void Pop();
+	bool Pop();
 	void PopAll();
 
 	short Size();

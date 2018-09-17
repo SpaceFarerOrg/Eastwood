@@ -45,7 +45,7 @@ void CStateStack::Push(CState * aNewState)
 	}
 }
 
-void CStateStack::Pop()
+bool CStateStack::Pop()
 {
 	if (myStates.size() > 0)
 	{
@@ -53,7 +53,9 @@ void CStateStack::Pop()
 
 		myStates.pop_back();
 		myCurrentStateIndex--;
+		return true;
 	}
+	return false;
 }
 
 void CStateStack::PopAll()

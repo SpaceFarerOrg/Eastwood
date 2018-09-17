@@ -15,9 +15,9 @@ void CState::SetOwner(CStateStack * aOwner)
 	myOwner = aOwner;
 }
 
-void CState::Pop()
+bool CState::Pop()
 {
-	myOwner->Pop();
+	return myOwner->Pop();
 }
 
 void CState::PopAll()

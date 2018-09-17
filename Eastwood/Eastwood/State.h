@@ -20,7 +20,7 @@ public:
 	virtual void Render(sf::RenderWindow* aRenderWindow) = 0;
 
 protected:
-	void Pop();
+	bool Pop();
 	void PopAll();
 
 	void Push(CState* aNewState);

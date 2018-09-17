@@ -2,6 +2,11 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "InputManager.h"
+#include "StateStack.h"
+#include "Time.h"
+#include "GameState.h"
+
 int main()
 {
 	sf::VideoMode vm;
@@ -11,19 +16,44 @@ int main()
 
 	sf::RenderWindow window(vm, "Eastwood");
 
+	CInputManager& inputManager = CInputManager::GetInstance();
+	inputManager.Init(&window);
+
+	CTime& time = CTime::GetInstance();
+	time.Init();
+
+	CStateStack stateStack;
+	stateStack.Init(8);
+	stateStack.Push(new CGameState());
+
 	sf::Event e;
 	while (window.isOpen())
 	{
+		inputManager.OncePerFrameUpdate();
+		time.Update();
+
 		while (window.pollEvent(e))
 		{
 			if (e.type == sf::Event::Closed)
 			{
 				window.close();
 			}
+			else
+			{
+				inputManager.Update(e);
+			}
 		}
+
+		stateStack.Update(time.GetDeltaTime());
+		stateStack.Render(&window);
 
 		window.clear(sf::Color::Magenta);
 		window.display();
+
+		if (stateStack.Size() == 0)
+		{
+			window.close();
+		}
 	}
 
 	return 0;

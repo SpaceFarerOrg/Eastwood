@@ -23,4 +23,9 @@ void CGameObject::AddComponent(const CComponent & aNewComponent, void* aComponen
 	createdComponent.BindOwner(myObjectManager.GetGameObject(myGameObjectID));
 }
 
+const sf::Vector2f & CGameObject::GetPosition() const
+{
+	return myTransform.getPosition();
+}
+
 //-----------------------------------------------------------

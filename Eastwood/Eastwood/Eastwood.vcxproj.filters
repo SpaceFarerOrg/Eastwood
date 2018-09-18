@@ -28,6 +28,12 @@
     <Filter Include="Header Files\Collision">
       <UniqueIdentifier>{04b37d41-f8e8-4005-a7ea-e3250aff16bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{2a74132b-62eb-4a40-9bf7-634749cbb4e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{0174c9ca-e3e3-43ae-8972-714a25378762}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="CommonMath.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableComponent.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Header Files\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

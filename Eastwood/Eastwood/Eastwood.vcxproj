@@ -143,6 +143,8 @@
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PointCollider.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
+    <ClCompile Include="RenderableComponent.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="PointCollider.h" />
     <ClInclude Include="RectangleCollider.h" />
+    <ClInclude Include="RenderableComponent.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />

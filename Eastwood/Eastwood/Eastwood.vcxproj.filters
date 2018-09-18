@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Object System">
+      <UniqueIdentifier>{318e2d0f-2dd7-45bb-b31f-5323a479caa8}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Utilities">
       <UniqueIdentifier>{5dc1cbd4-8a34-4a7e-ab41-1095850d7828}</UniqueIdentifier>
     </Filter>
@@ -29,6 +32,21 @@
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Object System</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Object System</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>Object System</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Object System</Filter>
+    </ClCompile>
+    <ClCompile Include="MockComponent.cpp">
+      <Filter>Object System</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
@@ -70,6 +88,21 @@
   <ItemGroup>
     <ClInclude Include="sfml_libs.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Object System</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Object System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Object System</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Object System</Filter>
+    </ClInclude>
+    <ClInclude Include="MockComponent.h">
+      <Filter>Object System</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">
       <Filter>Header Files\Utilities</Filter>

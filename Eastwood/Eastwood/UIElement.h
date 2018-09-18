@@ -21,6 +21,7 @@ public:
 
 	CCollider* GetCollider();
 	void AddElement(CUIElement* aElement);
+	void SetEventName(const std::string& aEventName);
 
 private:
 	CCollider* myCollider;

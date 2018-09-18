@@ -9,6 +9,7 @@ public:
 	CRectangleCollider() { myType = CCollider::EColliderType::Rectangle; };
 
 	void SetDimensions(const sf::Vector2f& aDimensions);
+	sf::Vector2f GetDimensions();
 	virtual bool IsColliding(const CCollider& aCollider) const override { return aCollider.IsColliding(*this); }
 
 	virtual bool IsColliding(const CCircleCollider& aCircleCollider) const;

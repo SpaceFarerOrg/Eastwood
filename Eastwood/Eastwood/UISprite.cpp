@@ -5,7 +5,7 @@ void CUISprite::Init()
 	myTexture.loadFromFile("Graphics/Textures/error.png");
 
 	setTexture(myTexture);
-
+	SetEventName("Sprite");
 	CUIElement::Init();
 }
 

@@ -21,8 +21,7 @@ void CUIElement::Init()
 
 	myRenderTexture.create(1600, 900);
 	myCollider = new CRectangleCollider();
-	static_cast<CRectangleCollider*>(myCollider)->SetDimensions({ 1600, 900 });
-	myCollider->setPosition(800, 450);
+	static_cast<CRectangleCollider*>(myCollider)->SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
 }
 
 void CUIElement::Update()
@@ -41,7 +40,7 @@ void CUIElement::Update()
 		}
 	}
 
-	myCollider->setPosition(getPosition());
+	myCollider->setPosition(getPosition() + static_cast<CRectangleCollider*>(myCollider)->GetDimensions() / 2.f);
 
 	for (CUIElement* element : myChildren)
 	{
@@ -69,4 +68,9 @@ CCollider * CUIElement::GetCollider()
 void CUIElement::AddElement(CUIElement * aElement)
 {
 	myChildren.push_back(aElement);
+}
+
+void CUIElement::SetEventName(const std::string & aEventName)
+{
+	myEventName = std::move(aEventName);
 }

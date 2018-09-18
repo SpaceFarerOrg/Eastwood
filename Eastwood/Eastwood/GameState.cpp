@@ -2,6 +2,8 @@
 #include "InputManager.h"
 #include <iostream>
 #include "MenuState.h"
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "RenderableComponent.h"
 
 CGameState::CGameState()
 {
@@ -15,7 +17,18 @@ CGameState::~CGameState()
 void CGameState::Init()
 {
 	std::cout << "Pushed GameState" << std::endl;
+
+	myTestTexture.loadFromFile("playerShip.png");
+
 	myObjectManager.Initialize(512);
+
+	myTestGameObject = myObjectManager.CreateGameObject().GetGameObjectID();
+	CGameObject& object = myObjectManager.GetGameObject(myTestGameObject);
+
+	SRenderableComponentParam renderableCompData;
+	renderableCompData.myRenderer = &myRenderer;
+	renderableCompData.myTexture = &myTestTexture;
+
 
 	myObjectManager.BeginPlay();
 }
@@ -43,4 +56,13 @@ void CGameState::Update(float dt)
 
 void CGameState::Render(sf::RenderWindow * aRenderWindow)
 {
+	if (!myRenderer.IsCreated())
+	{
+		myRenderer.Create(aRenderWindow->getSize().x, aRenderWindow->getSize().y);
+	}
+
+	sf::Sprite renderedImage = myRenderer.RunRendering();
+	aRenderWindow->draw(renderedImage);
+
+	myRenderer.Clear();
 }

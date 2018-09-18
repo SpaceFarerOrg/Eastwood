@@ -82,3 +82,11 @@ Eastwood/trash/Eastwood\.tlog/link\.write\.1\.tlog
 Eastwood/trash/vc141\.idb
 
 Eastwood/trash/vc141\.pdb
+
+*.ipch
+
+*.cmake
+
+*.pdb
+
+*.config

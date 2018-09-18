@@ -15,10 +15,15 @@ CGameState::~CGameState()
 void CGameState::Init()
 {
 	std::cout << "Pushed GameState" << std::endl;
+	myObjectManager.Initialize(512);
+
+	myObjectManager.BeginPlay();
 }
 
 void CGameState::Update(float dt)
 {
+	myObjectManager.Tick(dt);
+
 	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Escape))
 	{
 		PopAll();

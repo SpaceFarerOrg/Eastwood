@@ -23,3 +23,7 @@ void CRenderableComponent::Tick(float aDT)
 
 	myRendererToUse->PushRenderCommand(mySprite);
 }
+
+void CRenderableComponent::OnDestroy()
+{
+}

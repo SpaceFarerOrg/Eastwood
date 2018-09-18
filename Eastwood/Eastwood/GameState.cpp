@@ -29,6 +29,7 @@ void CGameState::Init()
 	renderableCompData.myRenderer = &myRenderer;
 	renderableCompData.myTexture = &myTestTexture;
 
+	object.AddComponent(CRenderableComponent(), &renderableCompData);
 
 	myObjectManager.BeginPlay();
 }

@@ -14,6 +14,8 @@ CMenuState::~CMenuState()
 void CMenuState::Init()
 {
 	std::cout << "Pushed MenuState" << std::endl;
+
+
 }
 
 void CMenuState::Update(float dt)

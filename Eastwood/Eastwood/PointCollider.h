@@ -14,7 +14,7 @@ public:
 	virtual bool IsColliding(const CRectangleCollider& aRectangleCollider) const override;
 	virtual bool IsColliding(const CPointCollider& aPointCollider) const override;
 
-	virtual CVector2f GetSize() const override;
+	virtual sf::Vector2f GetSize() const override;
 
 private:
 };

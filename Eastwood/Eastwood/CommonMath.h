@@ -27,12 +27,12 @@ namespace Math
 		return CLAMP(aValueToClamp, aMin, aMax);
 	}
 
-	static float Length2(const sf::Vector2f& aVector);
-	static float Length(const sf::Vector2f& aVector);
+	float Length2(const sf::Vector2f& aVector);
+	float Length(const sf::Vector2f& aVector);
 	
-	static sf::Vector2f Lerp(const sf::Vector2f& aLerpFrom, const sf::Vector2f& aLerpTo, float aInterpolation);
+	 sf::Vector2f Lerp(const sf::Vector2f& aLerpFrom, const sf::Vector2f& aLerpTo, float aInterpolation);
 
-	static float Lerp(float aLerpFrom, float aLerpTo, float aInterpolation);
+	float Lerp(float aLerpFrom, float aLerpTo, float aInterpolation);
 
 	//static SColor Lerp(SColor aLerpFrom, SColor aLerpTo, float aInterpolation)
 	//{

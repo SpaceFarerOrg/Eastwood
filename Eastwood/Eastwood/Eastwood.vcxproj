@@ -148,6 +148,9 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="MockComponent.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
   </ItemGroup>
@@ -173,6 +176,9 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="UISprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

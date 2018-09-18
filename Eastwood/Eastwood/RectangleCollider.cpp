@@ -5,10 +5,6 @@ void CRectangleCollider::SetDimensions(const sf::Vector2f & aDimensions)
 	myDimensions = aDimensions;
 }
 
-void CRectangleCollider::SetDimensions(const sf::Vector2f & aDimensions)
-{
-}
-
 bool CRectangleCollider::IsColliding(const CCircleCollider & aCircleCollider) const
 {
 	return CircleVsRectangle(aCircleCollider, *this);

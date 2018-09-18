@@ -15,7 +15,7 @@ bool CPointCollider::IsColliding(const CPointCollider & aPointCollider) const
 	return PointVsPoint(*this, aPointCollider);
 }
 
-CVector2f CPointCollider::GetSize() const
+sf::Vector2f CPointCollider::GetSize() const
 {
-	return CVector2f(GetScale());
+	return sf::Vector2f(getScale());
 }

@@ -15,7 +15,7 @@ void CMenuState::Init()
 {
 	std::cout << "Pushed MenuState" << std::endl;
 
-
+	myUIManager.Init();
 }
 
 void CMenuState::Update(float dt)
@@ -35,8 +35,11 @@ void CMenuState::Update(float dt)
 	{
 		Push(new CGameState());
 	}
+
+	myUIManager.Update(dt);
 }
 
 void CMenuState::Render(sf::RenderWindow * aRenderWindow)
 {
+	myUIManager.Render(aRenderWindow);
 }

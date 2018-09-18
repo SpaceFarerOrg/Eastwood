@@ -29,6 +29,7 @@ int main()
 	sf::Event e;
 	while (window.isOpen())
 	{
+		window.clear(sf::Color::Magenta);
 		inputManager.OncePerFrameUpdate();
 		time.Update();
 
@@ -47,7 +48,6 @@ int main()
 		stateStack.Update(time.GetDeltaTime());
 		stateStack.Render(&window);
 
-		window.clear(sf::Color::Magenta);
 		window.display();
 
 		if (stateStack.Size() == 0)

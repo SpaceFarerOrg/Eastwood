@@ -4,13 +4,6 @@
 #include "RectangleCollider.h"
 #include "PointCollider.h"
 
-CCollisionManager CCollider::ourManager;
-
-void CCollider::Register()
-{
-	ourManager.AddCollider(this);
-}
-
 bool CCollider::CircleVsCircle(const CCircleCollider & aCollider1, const CCircleCollider & aCollider2)
 {
 	float distance = Math::Length2(aCollider1.getPosition() - aCollider2.getPosition());

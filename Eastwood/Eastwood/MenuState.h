@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
 
-#include "CollisionManager.h"
+#include "UIManager.h"
 
 class CMenuState : public CState
 {
@@ -14,5 +14,5 @@ public:
 	void Render(sf::RenderWindow* aRenderWindow) override;
 
 private:
-	CCollisionManager myCollisionManager;
+	CUIManager myUIManager;
 };

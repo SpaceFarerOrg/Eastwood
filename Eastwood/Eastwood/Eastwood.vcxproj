@@ -151,14 +151,12 @@
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UISprite.cpp" />
-    <ClCompile Include="MockComponent.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="MockComponent.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />

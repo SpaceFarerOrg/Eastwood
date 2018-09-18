@@ -54,9 +54,6 @@
     <ClCompile Include="Component.cpp">
       <Filter>Object System</Filter>
     </ClCompile>
-    <ClCompile Include="MockComponent.cpp">
-      <Filter>Object System</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Object System</Filter>
     </ClInclude>
     <ClInclude Include="ComponentManager.h">
-      <Filter>Object System</Filter>
-    </ClInclude>
-    <ClInclude Include="MockComponent.h">
       <Filter>Object System</Filter>
     </ClInclude>
     <ClInclude Include="Time.h">

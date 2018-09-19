@@ -3,10 +3,14 @@
 #include "Renderer.h"
 #include "TransformComponent.h"
 
+//-----------------------------------------------------------
+
 CRenderableComponent::CRenderableComponent()
 	: CComponent(this, sizeof(CRenderableComponent))
 {
 }
+
+//-----------------------------------------------------------
 
 void CRenderableComponent::OnCreated(void * aInParams)
 {
@@ -15,6 +19,8 @@ void CRenderableComponent::OnCreated(void * aInParams)
 	myRendererToUse = inParam.myRenderer;
 	mySprite.setTexture(*inParam.myTexture);
 }
+
+//-----------------------------------------------------------
 
 void CRenderableComponent::Tick(float aDT)
 {
@@ -27,11 +33,17 @@ void CRenderableComponent::Tick(float aDT)
 	myRendererToUse->PushRenderCommand(mySprite);
 }
 
+//-----------------------------------------------------------
+
 void CRenderableComponent::OnDestroy()
 {
 }
+
+//-----------------------------------------------------------
 
 ComponentType CRenderableComponent::GetType() const
 {
 	return typeid(CRenderableComponent);
 }
+
+//-----------------------------------------------------------

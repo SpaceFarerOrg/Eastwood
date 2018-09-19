@@ -54,6 +54,8 @@ void CComponentManager::TickComponentsForObject(unsigned int aGameObjectID, floa
 	}
 }
 
+//-----------------------------------------------------------
+
 void CComponentManager::DestroyAllComponentsForObject(unsigned int aGameObjectID)
 {
 	std::vector<CComponent*>& componentList = myObjectToComponentListLUT[aGameObjectID];
@@ -67,6 +69,8 @@ void CComponentManager::DestroyAllComponentsForObject(unsigned int aGameObjectID
 	
 	myObjectToComponentListLUT.erase(aGameObjectID);
 }
+
+//-----------------------------------------------------------
 
 CComponent * CComponentManager::GetComponent(unsigned int aGameObjectID, ComponentType aComponentType)
 {

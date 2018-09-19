@@ -16,6 +16,7 @@ public:
 
 	CGameObject& GetGameObject(unsigned int aGameObjectID);
 	CGameObject& CreateGameObject();
+	void DestroyObject(unsigned int aGameObjectID);
 
 private:
 	CComponentManager myComponentManager;

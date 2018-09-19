@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <new.h>
 
+#include "TransformComponent.h"
+
 //-----------------------------------------------------------
 
 CObjectManager::CObjectManager()
@@ -76,7 +78,17 @@ CGameObject & CObjectManager::CreateGameObject()
 
 	++myNextObjectIndex;
 
+	//Add transform components to all game objects
+	createdObject->AddComponent(CTransformComponent());
+
 	return *createdObject;
+}
+
+//-----------------------------------------------------------
+
+void CObjectManager::DestroyObject(unsigned int aGameObjectID)
+{
+	myComponentManager.DestroyAllComponentsForObject(aGameObjectID);
 }
 
 //-----------------------------------------------------------

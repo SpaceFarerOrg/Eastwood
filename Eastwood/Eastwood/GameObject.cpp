@@ -8,6 +8,11 @@ CGameObject::CGameObject(CObjectManager& aObjectManager, unsigned int aGameObjec
 {
 }
 
+void CGameObject::Destroy()
+{
+	myObjectManager.DestroyObject(myGameObjectID);
+}
+
 //-----------------------------------------------------------
 
 unsigned int CGameObject::GetGameObjectID() const
@@ -23,9 +28,9 @@ void CGameObject::AddComponent(const CComponent & aNewComponent, void* aComponen
 	createdComponent.BindOwner(myObjectManager.GetGameObject(myGameObjectID));
 }
 
-const sf::Vector2f & CGameObject::GetPosition() const
+CComponent * CGameObject::GetComponent(ComponentType aComponentToGet)
 {
-	return myTransform.getPosition();
+	return myObjectManager.GetComponentManager().GetComponent(myGameObjectID, aComponentToGet);
 }
 
 //-----------------------------------------------------------

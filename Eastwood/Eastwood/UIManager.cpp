@@ -2,6 +2,8 @@
 #include "Graphics/RenderWindow.hpp"
 #include "UISprite.h"
 
+#include "JsonDocument.h"
+
 CUIManager::CUIManager()
 {
 }
@@ -10,11 +12,17 @@ CUIManager::~CUIManager()
 {
 }
 
-void CUIManager::Init()
+void CUIManager::Destroy()
 {
-	myUI.AddElement(new CUISprite());
+	myUI.Destroy();
+}
 
-	myUI.Init();
+void CUIManager::Init(const std::string& aUIFilePath)
+{
+	JsonDocument menuJson;
+	menuJson.LoadFile(aUIFilePath.c_str());
+
+	myUI.Init(menuJson["element"]);
 }
 
 void CUIManager::Update(float dt)

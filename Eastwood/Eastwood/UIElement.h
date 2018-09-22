@@ -2,7 +2,9 @@
 #include <vector>
 #include "Graphics/RenderTexture.hpp"
 #include "Graphics/Sprite.hpp"
-#include "Collider.h"
+#include "RectangleCollider.h"
+
+#include "JsonDocument.h"
 
 namespace sf
 {
@@ -13,20 +15,26 @@ class CUIElement : public sf::Sprite
 {
 public:
 	CUIElement();
-	~CUIElement();
+	virtual ~CUIElement();
 
-	virtual void Init(/*Json here, things like position and size*/);
+	void Destroy();
+
+	virtual void Init(JsonValue aElementJson);
 	virtual void Update();
 	virtual void Render(sf::RenderTarget* aTarget);
 
-	CCollider* GetCollider();
+	CRectangleCollider& GetCollider();
 	void AddElement(CUIElement* aElement);
 	void SetEventName(const std::string& aEventName);
 
-private:
-	CCollider* myCollider;
+protected:
+	CRectangleCollider myCollider;
 
 	sf::RenderTexture myRenderTexture;
+	std::string myName;
+
+private:
 	std::string myEventName;
 	std::vector<CUIElement*> myChildren;
+	bool myWasPressed;
 };

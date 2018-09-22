@@ -13,7 +13,9 @@ public:
 	CUIManager();
 	~CUIManager();
 
-	void Init(/*Json file later*/);
+	void Destroy();
+
+	void Init(const std::string& aUIFilePath);
 	void Update(float dt);
 	void Render(sf::RenderWindow* aRenderWindow);
 

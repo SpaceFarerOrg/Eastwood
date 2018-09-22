@@ -5,7 +5,9 @@ class CUISprite : public CUIElement
 {
 public:
 
-	virtual void Init() override;
+	~CUISprite() override;
+
+	virtual void Init(JsonValue aElementJson) override;
 	virtual void Update() override;
 	virtual void Render(sf::RenderTarget* aTarget) override;
 

@@ -50,6 +50,7 @@ bool CStateStack::Pop()
 	if (myStates.size() > 0)
 	{
 		delete myStates[myCurrentStateIndex];
+		myStates[myCurrentStateIndex] = nullptr;
 
 		myStates.pop_back();
 		myCurrentStateIndex--;
@@ -60,14 +61,9 @@ bool CStateStack::Pop()
 
 void CStateStack::PopAll()
 {
-	if (myStates.size() > 0)
+	while (myStates.size() > 0)
 	{
-		for (CState*& state : myStates)
-		{
-			delete state;
-		}
-
-		myStates.clear();
+		Pop();
 	}
 }
 

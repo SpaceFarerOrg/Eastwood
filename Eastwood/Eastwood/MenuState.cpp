@@ -9,34 +9,29 @@ CMenuState::CMenuState()
 
 CMenuState::~CMenuState()
 {
+	myUIManager.Destroy();
 }
 
 void CMenuState::Init()
 {
 	std::cout << "Pushed MenuState" << std::endl;
 
-	myUIManager.Init();
+	myUIManager.Init("UI/main_menu.json");
 }
 
 void CMenuState::Update(float dt)
 {
+	myUIManager.Update(dt);
+
 	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Escape))
 	{
 		PopAll();
 	}
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::BackSpace))
+	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::F5))
 	{
-		if (Pop())
-		{
-			std::cout << "Popped MenuState" << std::endl;
-		}
+		myUIManager.Destroy();
+		myUIManager.Init("UI/main_menu.json");
 	}
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::M))
-	{
-		Push(new CGameState());
-	}
-
-	myUIManager.Update(dt);
 }
 
 void CMenuState::Render(sf::RenderWindow * aRenderWindow)

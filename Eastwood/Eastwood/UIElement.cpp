@@ -4,6 +4,10 @@
 #include <iostream>
 #include "RectangleCollider.h"
 
+#include "JsonDocument.h"
+
+#include "UISprite.h"
+
 CUIElement::CUIElement()
 {
 }
@@ -12,40 +16,75 @@ CUIElement::~CUIElement()
 {
 }
 
-void CUIElement::Init()
+void CUIElement::Destroy()
 {
-	for (CUIElement*& element : myChildren)
+	for (CUIElement* child : myChildren)
 	{
-		element->Init();
+		child->Destroy();
+		delete child;
+	}
+	myChildren.clear();
+}
+
+void CUIElement::Init(JsonValue aElementJson)
+{
+	auto elementList = aElementJson["elements"];
+	for (int i = 0; i < elementList.GetSize(); ++i)
+	{
+		JsonValue elementJson = elementList[i];
+		CUIElement* element = nullptr;
+
+		std::string type = elementJson["type"].GetString();
+
+		if (type == "")
+		{
+			element = new CUIElement();
+		}
+		else if (type == "sprite")
+		{
+			element = new CUISprite();
+		}
+		else
+		{
+			element = new CUIElement();
+		}
+
+		element->Init(elementJson);
+		AddElement(element);
 	}
 
-	myRenderTexture.create(1600, 900);
-	myCollider = new CRectangleCollider();
-	static_cast<CRectangleCollider*>(myCollider)->SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
+	myName = aElementJson["name"].GetString();
+	setPosition(aElementJson["x"].GetFloat(), aElementJson["y"].GetFloat());
+	myRenderTexture.create(aElementJson["width"].GetInt(), aElementJson["height"].GetInt());
 }
 
 void CUIElement::Update()
 {
 	CInputManager& inputManager = CInputManager::GetInstance();
+	myWasPressed = false;
 
-	if (inputManager.IsKeyPressed(EKeyCode::MouseLeft))
+	bool childWasPressed = false;
+	for (CUIElement* element : myChildren)
+	{
+		element->Update();
+		childWasPressed = element->myWasPressed ? true : childWasPressed;
+	}
+
+	if (childWasPressed == false && inputManager.IsKeyPressed(EKeyCode::MouseLeft))
 	{
 		sf::Vector2f mPos = inputManager.GetMousePosFloat();
 		CPointCollider mCollider;
 		mCollider.setPosition(mPos);
 
-		if (myCollider->IsColliding(mCollider))
+		if (myCollider.IsColliding(mCollider))
 		{
-			std::cout << "Pressed " + myEventName << std::endl;
+			myWasPressed = true;
+			std::cout << "Pressed " + myName + ", Event: " + myEventName << std::endl;
 		}
 	}
 
-	myCollider->setPosition(getPosition() + static_cast<CRectangleCollider*>(myCollider)->GetDimensions() / 2.f);
-
-	for (CUIElement* element : myChildren)
-	{
-		element->Update();
-	}
+	myCollider.SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
+	myCollider.setPosition(getPosition() + myCollider.GetDimensions() / 2.f);
 }
 
 void CUIElement::Render(sf::RenderTarget * aTarget)
@@ -60,7 +99,7 @@ void CUIElement::Render(sf::RenderTarget * aTarget)
 	aTarget->draw(*this);
 }
 
-CCollider * CUIElement::GetCollider()
+CRectangleCollider& CUIElement::GetCollider()
 {
 	return myCollider;
 }

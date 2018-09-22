@@ -7,7 +7,7 @@ class CMenuState : public CState
 {
 public:
 	CMenuState();
-	~CMenuState();
+	~CMenuState() override;
 
 	void Init() override;
 	void Update(float dt) override;

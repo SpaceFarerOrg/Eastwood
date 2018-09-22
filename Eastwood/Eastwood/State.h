@@ -11,7 +11,7 @@ class CState
 {
 public:
 	CState();
-	~CState();
+	virtual ~CState();
 
 	void SetOwner(CStateStack* aOwner);
 

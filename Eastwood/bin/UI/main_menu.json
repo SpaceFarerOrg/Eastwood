@@ -1,0 +1,35 @@
+{
+  "element": {
+    "name": "background",
+    "type": "",
+    "x": 0.0,
+    "y": 0.0,
+    "width": 1600,
+    "height": 900,
+    "eventName": "main_layer",
+    "elements": [
+      {
+        "name": "what",
+        "type": "sprite",
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1600,
+        "height": 900,
+        "eventName": "what",
+        "texture": "Graphics/Textures/error.png",
+        "elements": []
+      },
+      {
+        "name": "hej",
+        "type": "sprite",
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0,
+        "height": 0,
+        "eventName": "hej",
+        "texture": "Graphics/Textures/error.png",
+        "elements": []
+      }
+    ]
+  }
+}

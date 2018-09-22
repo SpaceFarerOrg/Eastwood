@@ -1,6 +1,8 @@
 #pragma once
-
+#include <typeinfo>
 #include <utility>
+
+#include "ComponentRuntimeDataDefines.h"
 
 class CGameObject;
 
@@ -26,6 +28,8 @@ public:
 
 	const SRawComponentData& GetRawData() const;
 	void BindOwner(CGameObject& aGameObject);
+
+	virtual ComponentType GetType() const = 0;
 
 protected:
 	CGameObject& GetOwner();

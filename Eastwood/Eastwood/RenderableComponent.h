@@ -17,6 +17,8 @@ public:
 	void OnCreated(void* aInParams) override;
 	void Tick(float aDT) override;
 	void OnDestroy() override;
+
+	ComponentType GetType() const override;
 private:
 	CRenderer* myRendererToUse;
 	sf::Sprite mySprite;

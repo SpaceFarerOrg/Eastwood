@@ -9,26 +9,71 @@
     "eventName": "main_layer",
     "elements": [
       {
-        "name": "what",
+        "name": "background",
         "type": "sprite",
         "x": 0.0,
         "y": 0.0,
         "width": 1600,
         "height": 900,
-        "eventName": "what",
-        "texture": "Graphics/Textures/error.png",
-        "elements": []
-      },
-      {
-        "name": "hej",
-        "type": "sprite",
-        "x": 0.0,
-        "y": 0.0,
-        "width": 0,
-        "height": 0,
-        "eventName": "hej",
-        "texture": "Graphics/Textures/error.png",
-        "elements": []
+        "eventName": "",
+        "texture": "background.png",
+        "elements": [
+          {
+            "name": "button_quit",
+            "type": "sprite",
+            "x": 800.0,
+            "y": 750.0,
+            "width": 300,
+            "height": 75,
+            "eventName": "quit",
+            "texture": "button_quit.png",
+            "elements": []
+          },
+          {
+            "name": "button_settings",
+            "type": "sprite",
+            "x": 800.0,
+            "y": 640.0,
+            "width": 300,
+            "height": 75,
+            "eventName": "settings",
+            "texture": "button_settings.png",
+            "elements": []
+          },
+          {
+            "name": "button_host",
+            "type": "sprite",
+            "x": 800.0,
+            "y": 530.0,
+            "width": 300,
+            "height": 75,
+            "eventName": "host",
+            "texture": "button_host.png",
+            "elements": []
+          },
+          {
+            "name": "button_connect",
+            "type": "sprite",
+            "x": 800.0,
+            "y": 420.0,
+            "width": 300,
+            "height": 75,
+            "eventName": "connect",
+            "texture": "button_connect.png",
+            "elements": []
+          },
+          {
+            "name": "button_singleplayer",
+            "type": "sprite",
+            "x": 800.0,
+            "y": 310.0,
+            "width": 300,
+            "height": 75,
+            "eventName": "singleplayer",
+            "texture": "button_singleplayer.png",
+            "elements": []
+          }
+        ]
       }
     ]
   }

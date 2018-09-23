@@ -19,9 +19,11 @@ public:
 	void Update(float dt);
 	void Render(sf::RenderWindow* aRenderWindow);
 
+	void RegisterEvent(const std::string& aEventName);
 	bool CheckForEvent(const std::string& aEventName);
 
 private:
 	std::unordered_set<std::string> myEvents;
 	CUIElement myUI;
+	std::string myFilePath;
 };

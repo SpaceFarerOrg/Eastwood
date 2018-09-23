@@ -5,7 +5,7 @@
 #include "InputManager.h"
 #include "StateStack.h"
 #include "Time.h"
-#include "GameState.h"
+#include "MenuState.h"
 
 int main()
 {
@@ -24,7 +24,7 @@ int main()
 
 	CStateStack stateStack;
 	stateStack.Init(8);
-	stateStack.Push(new CGameState());
+	stateStack.Push(new CMenuState());
 
 	sf::Event e;
 	while (window.isOpen())

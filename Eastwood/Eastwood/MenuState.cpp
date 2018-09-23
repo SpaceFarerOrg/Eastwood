@@ -2,6 +2,9 @@
 #include <iostream>
 #include "InputManager.h"
 #include "GameState.h"
+#include "SettingsState.h"
+#include "HostState.h"
+#include "ConnectState.h"
 
 CMenuState::CMenuState()
 {
@@ -23,14 +26,25 @@ void CMenuState::Update(float dt)
 {
 	myUIManager.Update(dt);
 
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Escape))
+	if (myUIManager.CheckForEvent("singleplayer"))
+	{
+		Push(new CGameState());
+	}
+	else if (myUIManager.CheckForEvent("settings"))
+	{
+		Push(new CSettingsState());
+	}
+	else if (myUIManager.CheckForEvent("host"))
+	{
+		Push(new CHostState());
+	}
+	else if (myUIManager.CheckForEvent("connect"))
+	{
+		Push(new CConnectState());
+	}
+	else if (myUIManager.CheckForEvent("quit"))
 	{
 		PopAll();
-	}
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::F5))
-	{
-		myUIManager.Destroy();
-		myUIManager.Init("UI/main_menu.json");
 	}
 }
 

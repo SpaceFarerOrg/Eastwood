@@ -1,15 +1,17 @@
 #include "UIElement.h"
+#include <iostream>
 #include "InputManager.h"
 #include "PointCollider.h"
-#include <iostream>
 #include "RectangleCollider.h"
-
 #include "JsonDocument.h"
+
+#include "UIManager.h"
 
 #include "UISprite.h"
 
 CUIElement::CUIElement()
 {
+	myDebugMode = false;
 }
 
 CUIElement::~CUIElement()
@@ -24,6 +26,11 @@ void CUIElement::Destroy()
 		delete child;
 	}
 	myChildren.clear();
+}
+
+void CUIElement::SetUIManager(CUIManager * aUIManager)
+{
+	myUIManagerPtr = aUIManager;
 }
 
 void CUIElement::Init(JsonValue aElementJson)
@@ -49,13 +56,17 @@ void CUIElement::Init(JsonValue aElementJson)
 			element = new CUIElement();
 		}
 
+		element->SetUIManager(myUIManagerPtr);
 		element->Init(elementJson);
 		AddElement(element);
 	}
 
+	myEventName = aElementJson["eventName"].GetString();
 	myName = aElementJson["name"].GetString();
 	setPosition(aElementJson["x"].GetFloat(), aElementJson["y"].GetFloat());
 	myRenderTexture.create(aElementJson["width"].GetInt(), aElementJson["height"].GetInt());
+
+	randomColor = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
 }
 
 void CUIElement::Update()
@@ -68,6 +79,10 @@ void CUIElement::Update()
 	{
 		element->Update();
 		childWasPressed = element->myWasPressed ? true : childWasPressed;
+		if (childWasPressed)
+		{
+			myWasPressed = true;
+		}
 	}
 
 	if (childWasPressed == false && inputManager.IsKeyPressed(EKeyCode::MouseLeft))
@@ -79,16 +94,27 @@ void CUIElement::Update()
 		if (myCollider.IsColliding(mCollider))
 		{
 			myWasPressed = true;
+			myUIManagerPtr->RegisterEvent(myEventName);
 			std::cout << "Pressed " + myName + ", Event: " + myEventName << std::endl;
 		}
 	}
 
 	myCollider.SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
 	myCollider.setPosition(getPosition() + myCollider.GetDimensions() / 2.f);
+
+	if (inputManager.IsKeyPressed(EKeyCode::F3))
+	{
+		myDebugMode = !myDebugMode;
+	}
 }
 
 void CUIElement::Render(sf::RenderTarget * aTarget)
 {
+	if (myDebugMode)
+	{
+		myRenderTexture.clear(randomColor);
+	}
+
 	for (CUIElement*& element : myChildren)
 	{
 		element->Render(&myRenderTexture);

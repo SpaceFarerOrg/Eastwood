@@ -6,6 +6,8 @@
 
 #include "JsonDocument.h"
 
+class CUIManager;
+
 namespace sf
 {
 	class RenderTarget;
@@ -18,6 +20,7 @@ public:
 	virtual ~CUIElement();
 
 	void Destroy();
+	void SetUIManager(CUIManager* aUIManager);
 
 	virtual void Init(JsonValue aElementJson);
 	virtual void Update();
@@ -34,7 +37,12 @@ protected:
 	std::string myName;
 
 private:
+	CUIManager* myUIManagerPtr;
+
 	std::string myEventName;
 	std::vector<CUIElement*> myChildren;
 	bool myWasPressed;
+
+	bool myDebugMode;
+	sf::Color randomColor;
 };

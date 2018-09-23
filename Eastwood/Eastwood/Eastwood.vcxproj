@@ -138,7 +138,9 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CommonMath.cpp" />
+    <ClCompile Include="ConnectState.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HostState.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
@@ -149,6 +151,7 @@
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="RenderableComponent.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="Time.cpp" />
@@ -167,7 +170,9 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentRuntimeDataDefines.h" />
+    <ClInclude Include="ConnectState.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HostState.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
@@ -181,6 +186,7 @@
     <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="RenderableComponent.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="SettingsState.h" />
     <ClInclude Include="sfml_libs.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />

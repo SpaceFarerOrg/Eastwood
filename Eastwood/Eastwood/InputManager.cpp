@@ -34,6 +34,11 @@ void CInputManager::Update(const sf::Event& aWindowsMessage)
 {
 	UpdateKeys(aWindowsMessage);
 	UpdateMouse(aWindowsMessage);
+
+	if (aWindowsMessage.type == sf::Event::TextEntered)
+	{
+		myTextInput += static_cast<char>(aWindowsMessage.text.unicode);
+	}
 }
 
 void CInputManager::UpdateKeys(const sf::Event & aWindowsMessage)
@@ -121,6 +126,7 @@ void CInputManager::OncePerFrameUpdate()
 	myPreviousKeyStates = myKeyStates;
 	myPreviousMouseButtonStates = myMouseButtonStates;
 	myWheelDelta = 0.0f;
+	myTextInput.clear();
 }
 
 bool CInputManager::IsKeyPressed(EKeyCode aKey)
@@ -161,4 +167,9 @@ sf::Vector2f CInputManager::GetMousePosFloat()
 sf::Vector2i CInputManager::GetMousePosInt()
 {
 	return sf::Mouse::getPosition(*myHWND);
+}
+
+std::string CInputManager::GetTextInput()
+{
+	return std::move(myTextInput);
 }

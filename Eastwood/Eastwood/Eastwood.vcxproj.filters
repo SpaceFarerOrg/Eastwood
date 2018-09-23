@@ -132,6 +132,9 @@
     <ClCompile Include="SettingsState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UITextInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sfml_libs.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="ConnectState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="UITextInput.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

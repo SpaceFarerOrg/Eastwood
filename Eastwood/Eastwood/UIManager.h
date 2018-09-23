@@ -22,8 +22,17 @@ public:
 	void RegisterEvent(const std::string& aEventName);
 	bool CheckForEvent(const std::string& aEventName);
 
+	template<typename T>
+	T* GetElement(const std::string& aElementName);
+
 private:
 	std::unordered_set<std::string> myEvents;
 	CUIElement myUI;
 	std::string myFilePath;
 };
+
+template<typename T>
+inline T * CUIManager::GetElement(const std::string & aElementName)
+{
+	return myUI.FindElement<T>(aElementName);
+}

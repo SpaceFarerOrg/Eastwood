@@ -25,6 +25,8 @@ public:
 	sf::Vector2f GetMousePosFloat();
 	sf::Vector2i GetMousePosInt();
 
+	std::string GetTextInput();
+
 private:
 	CInputManager();
 
@@ -35,6 +37,8 @@ private:
 	std::map<EKeyCode, EKeyState> myPreviousMouseButtonStates;
 
 	float myWheelDelta;
+
+	std::string myTextInput;
 
 	sf::Window* myHWND;
 };

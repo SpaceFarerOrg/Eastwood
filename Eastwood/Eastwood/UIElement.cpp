@@ -8,6 +8,7 @@
 #include "UIManager.h"
 
 #include "UISprite.h"
+#include "UITextInput.h"
 
 CUIElement::CUIElement()
 {
@@ -51,6 +52,10 @@ void CUIElement::Init(JsonValue aElementJson)
 		{
 			element = new CUISprite();
 		}
+		else if (type == "textinput")
+		{
+			element = new CUITextInput();
+		}
 		else
 		{
 			element = new CUIElement();
@@ -65,6 +70,7 @@ void CUIElement::Init(JsonValue aElementJson)
 	myName = aElementJson["name"].GetString();
 	setPosition(aElementJson["x"].GetFloat(), aElementJson["y"].GetFloat());
 	myRenderTexture.create(aElementJson["width"].GetInt(), aElementJson["height"].GetInt());
+	myCollider.SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
 
 	randomColor = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
 }

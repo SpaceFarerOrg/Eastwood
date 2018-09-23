@@ -160,6 +160,7 @@
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="UITextInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\External\JSON\Base64.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UISprite.h" />
+    <ClInclude Include="UITextInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

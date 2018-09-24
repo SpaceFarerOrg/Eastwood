@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,6 +139,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CommonMath.cpp" />
     <ClCompile Include="ConnectState.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HostState.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentRuntimeDataDefines.h" />
     <ClInclude Include="ConnectState.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HostState.h" />
     <ClInclude Include="ObjectManager.h" />

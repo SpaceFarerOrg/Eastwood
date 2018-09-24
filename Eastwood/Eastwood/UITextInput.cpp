@@ -31,42 +31,49 @@ void CUITextInput::Update()
 	CInputManager& im = CInputManager::GetInstance();
 	std::string currentText = myText.getString();
 
-	if (im.IsKeyPressed(EKeyCode::BackSpace))
+	if (myIsSelected)
 	{
-		myCaretTimer = 0.f;
-		myCaretIsVisible = true;
-		if (currentText.size() > 0)
+		if (im.IsKeyPressed(EKeyCode::BackSpace))
 		{
-			if (im.IsKeyDown(EKeyCode::LeftCtrl) || im.IsKeyDown(EKeyCode::RightCtrl))
-			{
-				currentText.clear();
-			}
-			else
-			{
-				currentText.pop_back();
-			}
-		}
-	}
-	else if (!im.IsKeyDown(EKeyCode::BackSpace) && myText.getGlobalBounds().width + myText.getCharacterSize() <= myBox.getSize().x)
-	{
-		std::string input = im.GetTextInput();
-		if (input.size() > 0)
-		{
-			currentText += input;
 			myCaretTimer = 0.f;
 			myCaretIsVisible = true;
+			if (currentText.size() > 0)
+			{
+				if (im.IsKeyDown(EKeyCode::LeftCtrl) || im.IsKeyDown(EKeyCode::RightCtrl))
+				{
+					currentText.clear();
+				}
+				else
+				{
+					currentText.pop_back();
+				}
+			}
+		}
+		else if (!im.IsKeyDown(EKeyCode::BackSpace) && myText.getGlobalBounds().width + myText.getCharacterSize() <= myBox.getSize().x)
+		{
+			std::string input = im.GetTextInput();
+			if (input.size() > 0)
+			{
+				currentText += input;
+				myCaretTimer = 0.f;
+				myCaretIsVisible = true;
+			}
+		}
+
+		myText.setString(currentText);
+		myText.setPosition(getPosition() + sf::Vector2f(0, myBox.getSize().y / 2.f));
+
+		myCaret.setPosition(myText.getGlobalBounds().left + myText.getGlobalBounds().width + 2, myText.getPosition().y);
+		myCaretTimer += CTime::GetInstance().GetDeltaTime();
+		if (myCaretTimer > 0.5f)
+		{
+			myCaretTimer = 0.f;
+			myCaretIsVisible = !myCaretIsVisible;
 		}
 	}
-
-	myText.setString(currentText);
-	myText.setPosition(getPosition() + sf::Vector2f(0, myBox.getSize().y / 2.f));
-
-	myCaret.setPosition(myText.getGlobalBounds().left + myText.getGlobalBounds().width + 2, myText.getPosition().y);
-	myCaretTimer += CTime::GetInstance().GetDeltaTime();
-	if (myCaretTimer > 0.5f)
+	else
 	{
-		myCaretTimer = 0.f;
-		myCaretIsVisible = !myCaretIsVisible;
+		myCaretIsVisible = false;
 	}
 
 	CUIElement::Update();

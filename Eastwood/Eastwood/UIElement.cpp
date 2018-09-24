@@ -83,6 +83,11 @@ void CUIElement::Update()
 	bool childWasPressed = false;
 	for (CUIElement* element : myChildren)
 	{
+		if (inputManager.IsKeyPressed(EKeyCode::MouseLeft))
+		{
+			element->Deselect();
+		}
+
 		element->Update();
 		childWasPressed = element->myWasPressed ? true : childWasPressed;
 		if (childWasPressed)
@@ -102,6 +107,7 @@ void CUIElement::Update()
 			myWasPressed = true;
 			myUIManagerPtr->RegisterEvent(myEventName);
 			std::cout << "Pressed " + myName + ", Event: " + myEventName << std::endl;
+			myIsSelected = true;
 		}
 	}
 
@@ -144,4 +150,9 @@ void CUIElement::AddElement(CUIElement * aElement)
 void CUIElement::SetEventName(const std::string & aEventName)
 {
 	myEventName = std::move(aEventName);
+}
+
+void CUIElement::Deselect()
+{
+	myIsSelected = false;
 }

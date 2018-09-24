@@ -30,6 +30,8 @@ public:
 	void AddElement(CUIElement* aElement);
 	void SetEventName(const std::string& aEventName);
 
+	void Deselect();
+
 	template<typename T>
 	T* FindElement(const std::string& aElementName);
 
@@ -38,6 +40,7 @@ protected:
 
 	sf::RenderTexture myRenderTexture;
 	std::string myName;
+	bool myIsSelected;
 
 private:
 	CUIManager* myUIManagerPtr;

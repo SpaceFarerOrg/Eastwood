@@ -40,6 +40,9 @@
     <Filter Include="Header Files\json">
       <UniqueIdentifier>{3502d870-d10a-44ac-8202-fce148c57382}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Events">
+      <UniqueIdentifier>{ec6e7797-b853-4f42-8d69-cc4ca06805e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="SettingsState.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Events</Filter>
     </ClCompile>
     <ClCompile Include="UITextInput.cpp">
       <Filter>Source Files</Filter>
@@ -235,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="ConnectState.h">
       <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="UITextInput.h">
       <Filter>Header Files\UI</Filter>

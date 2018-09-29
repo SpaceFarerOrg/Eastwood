@@ -52,3 +52,8 @@ bool Network::CConnectionBase::IsActive()
 {
 	return myIsActive;
 }
+
+Network::CNetMessageManager & Network::CConnectionBase::GetMessageManager()
+{
+	return myMessageManager;
+}

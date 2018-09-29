@@ -76,4 +76,6 @@ void CGameState::SetupNetworking()
 		myClient.Start(sf::Socket::AnyPort);
 		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
 	}
+
+	CComponent::BindNetMessageManager(myClient.GetMessageManager());
 }

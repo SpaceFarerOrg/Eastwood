@@ -16,7 +16,7 @@ CComponent& CComponentManager::CreateComponent(const CComponent& aComponentToAdd
 {
 	const SRawComponentData& componentData = aComponentToAdd.GetRawData();
 
-	unsigned int memID = myMemoryPool.AddToPool(componentData.myAddress, componentData.mySizeof);
+	unsigned int memID = myMemoryPool.AddToPool(componentData.myAddress, (unsigned int)componentData.mySizeof);
 	
 	CComponent* asComponent = reinterpret_cast<CComponent*>(myMemoryPool[memID]);
 	
@@ -68,7 +68,7 @@ void CComponentManager::DestroyAllComponentsForObject(unsigned int aGameObjectID
 	for (SComponentHandle& componentHandle : componentList)
 	{
 		componentHandle.myComponent->OnDestroy();
-		myMemoryPool.RemoveFromPool(componentHandle.myMemoryPoolId, componentHandle.myComponent->GetRawData().mySizeof);
+		myMemoryPool.RemoveFromPool(componentHandle.myMemoryPoolId, (unsigned int)componentHandle.myComponent->GetRawData().mySizeof);
 	}
 	
 	myObjectToComponentListLUT.erase(aGameObjectID);

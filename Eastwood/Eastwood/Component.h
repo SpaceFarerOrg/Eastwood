@@ -6,6 +6,11 @@
 
 class CGameObject;
 
+namespace Network
+{
+	class CNetMessageManager;
+}
+
 struct SRawComponentData
 {
 	void* myAddress;
@@ -31,15 +36,18 @@ public:
 
 	virtual ComponentType GetType() const = 0;
 
+	static void BindNetMessageManager(Network::CNetMessageManager& aMessageManager);
 protected:
-	CGameObject& GetOwner();
+	CGameObject & GetOwner();
 
 	void SetShouldTick(bool aShouldTick);
 
 	template<typename T>
 	T CastToCustomInParams(void* aCreationParams) const;
 
+	static Network::CNetMessageManager* ourNetMessageManager;
 private:
+
 	SRawComponentData myRawData;
 	CGameObject* myOwnerObject;
 	bool myShouldTick : 1;

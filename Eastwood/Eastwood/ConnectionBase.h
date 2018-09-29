@@ -14,6 +14,7 @@ namespace Network
 
 		bool IsActive();
 
+		CNetMessageManager& GetMessageManager();
 	protected:
 
 		struct SReceivedMessage

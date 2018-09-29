@@ -1,6 +1,12 @@
 #include "Component.h"
 #include <assert.h>
 
+#include "NetMessageManager.h"
+
+//-----------------------------------------------------------
+
+Network::CNetMessageManager* CComponent::ourNetMessageManager;
+
 //-----------------------------------------------------------
 
 CComponent::CComponent()
@@ -64,6 +70,11 @@ void CComponent::BindOwner(CGameObject& aGameObject)
 }
 
 //-----------------------------------------------------------
+
+void CComponent::BindNetMessageManager(Network::CNetMessageManager & aMessageManager)
+{
+	ourNetMessageManager = &aMessageManager;
+}
 
 CGameObject & CComponent::GetOwner()
 {

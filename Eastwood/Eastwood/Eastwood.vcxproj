@@ -164,6 +164,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="TimedEvent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIManager.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="State.h" />
     <ClInclude Include="StateStack.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="TimedEvent.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIManager.h" />

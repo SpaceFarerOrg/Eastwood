@@ -10,26 +10,27 @@ void CUISprite::Init(JsonValue aElementJson)
 
 	myTexture.loadFromFile("Graphics/Textures/UI/" + std::string(aElementJson["texture"].GetString()));
 
-	if (aElementJson["width"].GetInt() == 0 || aElementJson["height"].GetInt() == 0)
+	float width = (float)aElementJson["width"].GetInt();
+	float height = (float)aElementJson["height"].GetInt();
+	if (width != 0 && height != 0)
 	{
-		myRenderTexture.create(myTexture.getSize().x, myTexture.getSize().y);
+		setScale(width / (float)myTexture.getSize().x, height / (float)myTexture.getSize().y);
 	}
-	//float sx = (float)myRenderTexture.getSize().x / myTexture.getSize().x;
-	//float sy = (float)myRenderTexture.getSize().y / myTexture.getSize().y;
-	//setScale(sx, sy);
 
 	setTexture(myTexture);
 }
 
 void CUISprite::Update()
 {
-
 	CUIElement::Update();
 }
 
 void CUISprite::Render(sf::RenderTarget * aTarget)
 {
-	aTarget->draw(*this);
+	//if (myName == "background")
+	//{
+	//	setScale()
+	//}
 
 	CUIElement::Render(aTarget); // Should be bottom
 }

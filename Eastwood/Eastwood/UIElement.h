@@ -38,7 +38,6 @@ public:
 protected:
 	CRectangleCollider myCollider;
 
-	sf::RenderTexture myRenderTexture;
 	std::string myName;
 	bool myIsSelected;
 

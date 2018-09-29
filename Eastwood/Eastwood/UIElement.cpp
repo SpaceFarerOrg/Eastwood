@@ -69,10 +69,8 @@ void CUIElement::Init(JsonValue aElementJson)
 	myEventName = aElementJson["eventName"].GetString();
 	myName = aElementJson["name"].GetString();
 	setPosition(aElementJson["x"].GetFloat(), aElementJson["y"].GetFloat());
-	myRenderTexture.create(aElementJson["width"].GetInt(), aElementJson["height"].GetInt());
-	myCollider.SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
-
-	randomColor = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+	//myRenderTexture.create(aElementJson["width"].GetInt(), aElementJson["height"].GetInt());
+	myCollider.SetDimensions({(float)aElementJson["width"].GetInt(), (float)aElementJson["height"].GetInt()});
 }
 
 void CUIElement::Update()
@@ -111,7 +109,6 @@ void CUIElement::Update()
 		}
 	}
 
-	myCollider.SetDimensions({ (float)myRenderTexture.getSize().x, (float)myRenderTexture.getSize().y });
 	myCollider.setPosition(getPosition() + myCollider.GetDimensions() / 2.f);
 
 	if (inputManager.IsKeyPressed(EKeyCode::F3))
@@ -122,19 +119,13 @@ void CUIElement::Update()
 
 void CUIElement::Render(sf::RenderTarget * aTarget)
 {
-	if (myDebugMode)
-	{
-		myRenderTexture.clear(randomColor);
-	}
+	aTarget->draw(*this);
 
 	for (CUIElement*& element : myChildren)
 	{
-		element->Render(&myRenderTexture);
+		element->Render(aTarget);
 	}
-	myRenderTexture.display();
-	setTexture(myRenderTexture.getTexture());
 
-	aTarget->draw(*this);
 }
 
 CRectangleCollider& CUIElement::GetCollider()

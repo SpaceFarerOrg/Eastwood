@@ -168,6 +168,9 @@
     <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimedEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sfml_libs.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="NetMessages.h">
       <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedEvent.h">
+      <Filter>Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

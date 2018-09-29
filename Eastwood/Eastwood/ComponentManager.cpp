@@ -7,6 +7,7 @@
 
 CComponentManager::CComponentManager()
 {
+	myMemoryPool.Initialize(sizeof(CComponent) * 10000);
 }
 
 //-----------------------------------------------------------
@@ -15,11 +16,15 @@ CComponent& CComponentManager::CreateComponent(const CComponent& aComponentToAdd
 {
 	const SRawComponentData& componentData = aComponentToAdd.GetRawData();
 
-	char* createdComponentMemory = new char[componentData.mySizeof];
-	memcpy(createdComponentMemory, componentData.myAddress, componentData.mySizeof);
+	unsigned int memID = myMemoryPool.AddToPool(componentData.myAddress, componentData.mySizeof);
 	
-	CComponent* asComponent = reinterpret_cast<CComponent*>(createdComponentMemory);
-	myObjectToComponentListLUT[aGameObjectID].push_back(asComponent);
+	CComponent* asComponent = reinterpret_cast<CComponent*>(myMemoryPool[memID]);
+	
+	SComponentHandle addedComponentHandle;
+	addedComponentHandle.myComponent = asComponent;
+	addedComponentHandle.myMemoryPoolId = memID;
+
+	myObjectToComponentListLUT[aGameObjectID].push_back(addedComponentHandle);
 
 	asComponent->OnCreated(aComponentCreationParams);
 
@@ -32,9 +37,9 @@ void CComponentManager::OnStart()
 {
 	for (auto& componentList : myObjectToComponentListLUT)
 	{
-		for (auto& component : componentList.second)
+		for (auto& componentHandle : componentList.second)
 		{
-			component->OnStart();
+			componentHandle.myComponent->OnStart();
 		}
 	}
 }
@@ -43,14 +48,14 @@ void CComponentManager::OnStart()
 
 void CComponentManager::TickComponentsForObject(unsigned int aGameObjectID, float aDT)
 {
-	for (auto*& component : myObjectToComponentListLUT[aGameObjectID])
+	for (auto& componentHandle : myObjectToComponentListLUT[aGameObjectID])
 	{
-		if (!component->ShouldTick())
+		if (!componentHandle.myComponent->ShouldTick())
 		{
 			continue;
 		}
 
-		component->Tick(aDT); 
+		componentHandle.myComponent->Tick(aDT); 
 	}
 }
 
@@ -58,13 +63,12 @@ void CComponentManager::TickComponentsForObject(unsigned int aGameObjectID, floa
 
 void CComponentManager::DestroyAllComponentsForObject(unsigned int aGameObjectID)
 {
-	std::vector<CComponent*>& componentList = myObjectToComponentListLUT[aGameObjectID];
+	std::vector<SComponentHandle>& componentList = myObjectToComponentListLUT[aGameObjectID];
 
-	for (CComponent*& component : componentList)
+	for (SComponentHandle& componentHandle : componentList)
 	{
-		component->OnDestroy();
-		delete component;
-		component = nullptr;
+		componentHandle.myComponent->OnDestroy();
+		myMemoryPool.RemoveFromPool(componentHandle.myMemoryPoolId, componentHandle.myComponent->GetRawData().mySizeof);
 	}
 	
 	myObjectToComponentListLUT.erase(aGameObjectID);
@@ -72,15 +76,15 @@ void CComponentManager::DestroyAllComponentsForObject(unsigned int aGameObjectID
 
 //-----------------------------------------------------------
 
-CComponent * CComponentManager::GetComponent(unsigned int aGameObjectID, ComponentType aComponentType)
+CComponent* CComponentManager::GetComponent(unsigned int aGameObjectID, ComponentType aComponentType)
 {
-	std::vector<CComponent*>& componentList = myObjectToComponentListLUT[aGameObjectID];
+	std::vector<SComponentHandle>& componentList = myObjectToComponentListLUT[aGameObjectID];
 
-	for (CComponent* component : componentList)
+	for (SComponentHandle& componentHandle : componentList)
 	{
-		if (component->GetType() == aComponentType)
+		if (componentHandle.myComponent->GetType() == aComponentType)
 		{
-			return component;
+			return componentHandle.myComponent;
 		}
 	}
 

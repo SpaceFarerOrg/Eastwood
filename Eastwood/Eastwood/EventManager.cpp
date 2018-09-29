@@ -21,3 +21,7 @@ void CEventManager::FireEvent(const std::string& aEventName, const SEventData & 
 		subscriber(aEventData);
 	}
 }
+
+CEventManager::CEventManager()
+{
+}

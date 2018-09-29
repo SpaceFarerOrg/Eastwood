@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 #include "ComponentRuntimeDataDefines.h"
+#include "MemoryPool.h"
 
 class CObjectManager;
 class CGameObject;
@@ -20,6 +21,13 @@ public:
 
 	CComponent* GetComponent(unsigned int aGameObjectID, ComponentType aComponentType);
 private:
-	std::unordered_map<unsigned int, std::vector<CComponent*>> myObjectToComponentListLUT;
+	struct SComponentHandle
+	{
+		unsigned int myMemoryPoolId;
+		CComponent* myComponent;
+	};
 
+	CMemoryPool myMemoryPool;
+
+	std::unordered_map<unsigned int, std::vector<SComponentHandle>> myObjectToComponentListLUT;
 };

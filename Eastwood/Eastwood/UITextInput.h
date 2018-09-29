@@ -14,6 +14,7 @@ public:
 	virtual void Render(sf::RenderTarget* aTarget) override;
 
 	std::string GetText();
+	void Clear();
 
 private:
 	float myCaretTimer;

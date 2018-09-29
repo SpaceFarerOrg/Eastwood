@@ -9,13 +9,47 @@
     "eventName": "main_layer",
     "elements": [
       {
-        "name": "textinput",
+        "name": "server_name_input",
         "type": "textinput",
-        "x": 800.0,
-        "y": 400.0,
-        "width": 300,
+        "x": 400.0,
+        "y": 200.0,
+        "width": 500,
         "height": 64,
         "eventName": "",
+        "defaultText": "Name",
+        "elements": []
+      },
+      {
+        "name": "port_input",
+        "type": "textinput",
+        "x": 400.0,
+        "y": 400.0,
+        "width": 500,
+        "height": 64,
+        "eventName": "",
+        "defaultText": "Port",
+        "elements": []
+      },
+      {
+        "name": "button_connect",
+        "type": "sprite",
+        "x": 1100.0,
+        "y": 750.0,
+        "width": 300,
+        "height": 75,
+        "eventName": "connect",
+        "texture": "button_connect.png",
+        "elements": []
+      },
+      {
+        "name": "button_back",
+        "type": "sprite",
+        "x": 50.0,
+        "y": 750.0,
+        "width": 300,
+        "height": 75,
+        "eventName": "back",
+        "texture": "button_quit.png",
         "elements": []
       }
     ]

@@ -9,6 +9,13 @@ CGameState::CGameState()
 {
 }
 
+CGameState::CGameState(const SLaunchData& aLaunchData)
+{
+	myLaunchData = aLaunchData;
+
+	std::cout << "Started Game as " << (myLaunchData.myNetworkState == Network::ENetworkState::Singleplayer ? "Singleplayer" : (myLaunchData.myNetworkState == Network::ENetworkState::Server ? "Server" : "Client")) << std::endl;
+}
+
 
 CGameState::~CGameState()
 {
@@ -18,41 +25,25 @@ void CGameState::Init()
 {
 	std::cout << "Pushed GameState" << std::endl;
 
+	SetupNetworking();
+
 	myTestTexture.loadFromFile("playerShip.png");
 
 	myObjectManager.Initialize(512);
 
-	myTestGameObject = myObjectManager.CreateGameObject().GetGameObjectID();
-	CGameObject& object = myObjectManager.GetGameObject(myTestGameObject);
-
 	SRenderableComponentParam renderableCompData;
 	renderableCompData.myRenderer = &myRenderer;
 	renderableCompData.myTexture = &myTestTexture;
-
-	object.AddComponent(CRenderableComponent(), &renderableCompData);
 
 	myObjectManager.BeginPlay();
 }
 
 void CGameState::Update(float dt)
 {
-	myObjectManager.Tick(dt);
+	myServer.Update();
+	myClient.Update();
 
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Escape))
-	{
-		PopAll();
-	}
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::BackSpace))
-	{
-		if (Pop())
-		{
-			std::cout << "Popped GameState" << std::endl;
-		}
-	}
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::M))
-	{
-		Push(new CMenuState());
-	}
+	myObjectManager.Tick(dt);
 }
 
 void CGameState::Render(sf::RenderWindow * aRenderWindow)
@@ -66,4 +57,23 @@ void CGameState::Render(sf::RenderWindow * aRenderWindow)
 	aRenderWindow->draw(renderedImage);
 
 	myRenderer.Clear();
+}
+
+void CGameState::SetupNetworking()
+{
+	if (myLaunchData.myNetworkState == Network::ENetworkState::Singleplayer)
+		return;
+
+	if (myLaunchData.myNetworkState == Network::ENetworkState::Server)
+	{
+		myServer.SetName(myLaunchData.myName);
+		myServer.Start(myLaunchData.myPort);
+		myClient.Start(sf::Socket::AnyPort);
+		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
+	}
+	if (myLaunchData.myNetworkState == Network::ENetworkState::Client)
+	{
+		myClient.Start(sf::Socket::AnyPort);
+		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
+	}
 }

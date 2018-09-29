@@ -13,6 +13,7 @@ void CUITextInput::Init(JsonValue aElementJson)
 	myFont.loadFromFile("Graphics/Fonts/default.ttf");
 	myText.setFont(myFont);
 	myText.setOrigin(-10, myText.getCharacterSize() / 2.f);
+	myText.setString(aElementJson["defaultText"].GetString());
 
 	myBox.setFillColor(sf::Color::Black);
 	myBox.setSize(myCollider.GetSize());
@@ -49,7 +50,7 @@ void CUITextInput::Update()
 				}
 			}
 		}
-		else if (!im.IsKeyDown(EKeyCode::BackSpace) && myText.getGlobalBounds().width + myText.getCharacterSize() <= myBox.getSize().x)
+		else if (!im.IsKeyDown(EKeyCode::BackSpace) && !im.IsKeyDown(EKeyCode::Enter) && !im.IsKeyDown(EKeyCode::Tab) && myText.getGlobalBounds().width + myText.getCharacterSize() <= myBox.getSize().x)
 		{
 			std::string input = im.GetTextInput();
 			if (input.size() > 0)
@@ -59,10 +60,6 @@ void CUITextInput::Update()
 				myCaretIsVisible = true;
 			}
 		}
-
-		myText.setString(currentText);
-		myText.setPosition(getPosition() + sf::Vector2f(0, myBox.getSize().y / 2.f));
-
 		myCaret.setPosition(myText.getGlobalBounds().left + myText.getGlobalBounds().width + 2, myText.getPosition().y);
 		myCaretTimer += CTime::GetInstance().GetDeltaTime();
 		if (myCaretTimer > 0.5f)
@@ -75,6 +72,9 @@ void CUITextInput::Update()
 	{
 		myCaretIsVisible = false;
 	}
+
+	myText.setString(currentText);
+	myText.setPosition(getPosition() + sf::Vector2f(0, myBox.getSize().y / 2.f));
 
 	CUIElement::Update();
 }
@@ -95,4 +95,9 @@ void CUITextInput::Render(sf::RenderTarget * aTarget)
 std::string CUITextInput::GetText()
 {
 	return std::move(myText.getString());
+}
+
+void CUITextInput::Clear()
+{
+	myText.setString("");
 }

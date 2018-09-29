@@ -14,6 +14,8 @@ public:
 	void Update(float dt) override;
 	void Render(sf::RenderWindow* aRenderWindow) override;
 
+
 private:
+	void GoToGame(const std::string& aServerName, unsigned int aPort);
 	CUIManager myUIManager;
 };

@@ -4,6 +4,7 @@
 
 #include "InputManager.h"
 #include "UITextInput.h"
+#include "GameState.h"
 
 void CHostState::Init()
 {
@@ -13,14 +14,28 @@ void CHostState::Init()
 void CHostState::Update(float dt)
 {
 	myUIManager.Update(dt);
-	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Enter))
+	CUITextInput* portInput = myUIManager.GetElement<CUITextInput>("port_input");
+	CUITextInput* serverNameInput = myUIManager.GetElement<CUITextInput>("server_name_input");
+	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Enter) || myUIManager.CheckForEvent("connect"))
 	{
-		CUITextInput* textInput = myUIManager.GetElement<CUITextInput>("textinput");
-		std::cout << textInput->GetText() << std::endl;
+		CGameState::SLaunchData launchData;
+		launchData.myAddressToConnectTo = "127.0.0.1";
+		launchData.myName = serverNameInput->GetText();
+		launchData.myNetworkState = Network::ENetworkState::Server;
+		launchData.myPort = std::stoi(portInput->GetText());
+
+		Push(new CGameState(launchData));
+
+		portInput->Clear();
+		serverNameInput->Clear();
 	}
 }
 
 void CHostState::Render(sf::RenderWindow * aRenderWindow)
 {
 	myUIManager.Render(aRenderWindow);
+}
+
+void CHostState::GoToGame(const std::string & aServerName, unsigned int aPort)
+{
 }

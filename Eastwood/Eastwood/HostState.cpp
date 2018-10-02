@@ -20,6 +20,7 @@ void CHostState::Update(float dt)
 	{
 		CGameState::SLaunchData launchData;
 		launchData.myAddressToConnectTo = "127.0.0.1";
+		launchData.myAddressToConnectTo = "85.235.23.240";
 		launchData.myName = serverNameInput->GetText();
 		launchData.myNetworkState = Network::ENetworkState::Server;
 		launchData.myPort = std::stoi(portInput->GetText());

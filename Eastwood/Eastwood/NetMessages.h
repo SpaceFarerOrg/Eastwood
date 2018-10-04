@@ -1,5 +1,7 @@
 #pragma once
 
 #include "NetMessage.h"
-#include "NetMessageString.h"
-#include "NetMessageVector2.h"
+#include "NetMessageChat.h"
+#include "NetMessageConnect.h"
+#include "NetMessagePosition.h"
+#include "NetMessagePlayerData.h"

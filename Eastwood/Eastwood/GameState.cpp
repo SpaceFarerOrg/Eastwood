@@ -68,14 +68,14 @@ void CGameState::SetupNetworking()
 	{
 		myServer.SetName(myLaunchData.myName);
 		myServer.Start(myLaunchData.myPort);
-		myClient.Start(sf::Socket::AnyPort);
+		myClient.Start(0);
 		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
 	}
 	if (myLaunchData.myNetworkState == Network::ENetworkState::Client)
 	{
-		myClient.Start(sf::Socket::AnyPort);
+		myClient.Start(0);
 		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
 	}
 
-	CComponent::BindNetMessageManager(myClient.GetMessageManager());
+	//CComponent::BindNetMessageManager(myClient.GetMessageManager());
 }

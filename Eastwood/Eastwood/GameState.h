@@ -16,7 +16,7 @@ public:
 	struct SLaunchData
 	{
 		Network::ENetworkState myNetworkState;
-		sf::IpAddress myAddressToConnectTo;
+		std::string myAddressToConnectTo;
 		std::string myName;
 		unsigned int myPort;
 	};

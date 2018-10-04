@@ -1,6 +1,5 @@
 #pragma once
 #include "ConnectionBase.h"
-#include "TimedEvent.h"
 
 namespace Network
 {
@@ -14,17 +13,12 @@ namespace Network
 		void Update() override;
 		void Stop() override;
 
-		void TryToConnect(const std::string& aName, const std::string& aIP, unsigned int aPort);
+		void TryToConnect(const std::string& aMyName, sf::IpAddress aAddress, unsigned int aPort);
 
 	private:
 
-		void PingServer();
-
-		sockaddr_in myLocalAddress;
-		sockaddr_in myServerAddress;
-
+		sf::IpAddress myLocalAddress;
+		sf::IpAddress myServerAddress;
 		unsigned int myServerPort;
-
-		CTimedEvent myPingTimer;
 	};
 }

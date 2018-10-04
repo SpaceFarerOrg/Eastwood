@@ -1,19 +1,14 @@
 #include "NetMessageManager.h"
+#include <iostream>
 
-#include "NetMessage.h"
-
-#include "NetMessageString.h"
-
-Network::CNetMessageManager::CNetMessageManager(sf::UdpSocket & aSocket) : mySocket(aSocket)
+void Network::CNetMessageManager::Init(SOCKET aSocket)
 {
+	mySocket = aSocket;
 }
 
-void Network::CNetMessageManager::AddReceiver(sf::IpAddress aAddress, unsigned short aPort)
+void Network::CNetMessageManager::AddReceiver(sockaddr_in aAddress)
 {
-	SReceiverPair rp;
-	rp.myAddress = aAddress;
-	rp.myPort = aPort;
-	myAddresses.insert(std::make_pair(aAddress.toInteger(), rp));
+	myAddresses.push_back(aAddress);
 }
 
 unsigned int Network::CNetMessageManager::Flush()
@@ -22,21 +17,19 @@ unsigned int Network::CNetMessageManager::Flush()
 
 	for (CNetMessage*& msg : myMessages)
 	{
-		if (myAddresses.find(msg->GetBaseData().myTargetID) == myAddresses.end())
+		if (myAddresses.size() <= msg->GetBaseData().myTargetID)
 		{
+			PRINT("Tried sending a message to a non-existing recipient.");
 			continue;
 		}
 
 		msg->Pack();
 
-		SReceiverPair& rp = myAddresses[msg->GetBaseData().myTargetID];
-
-		mySocket.send(msg->GetPacket(), rp.myAddress, rp.myPort);
-
-		delete msg;
+		sockaddr_in address = myAddresses[msg->GetBaseData().myTargetID];
+		bytesSent += sendto(mySocket, msg->GetBufferStart(), msg->GetBufferSize(), 0, (sockaddr*)&address, sizeof(address));
 	}
 
 	myMessages.clear();
 
-	return 0;
+	return bytesSent;
 }

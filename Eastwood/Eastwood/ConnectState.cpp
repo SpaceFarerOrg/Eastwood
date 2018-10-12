@@ -20,7 +20,7 @@ void CConnectState::Update(float dt)
 	if (CInputManager::GetInstance().IsKeyPressed(EKeyCode::Enter) || myUIManager.CheckForEvent("connect"))
 	{
 		CGameState::SLaunchData launchData;
-		launchData.myAddressToConnectTo = "";
+		launchData.myAddressToConnectTo = ipInput->GetText();
 		launchData.myName = nameInput->GetText();
 		launchData.myNetworkState = Network::ENetworkState::Client;
 		launchData.myPort = std::stoi(portInput->GetText());

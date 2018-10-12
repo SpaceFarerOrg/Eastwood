@@ -1,61 +1,59 @@
 #include "ConnectionBase.h"
 #include "Time.h"
 
+Network::CConnectionBase::CConnectionBase() : myMessageManager(mySocket)
+{
+	myIsActive = false;
+}
+
 void Network::CConnectionBase::Start(unsigned int aPort)
 {
-	int error = 0;
-	WSADATA data = {};
-	error = WSAStartup(MAKEWORD(2, 2), &data);
-	if (error != 0)
-	{
-		PRINT("WSAStartup failed with error code: " + std::to_string(error));
-		return;
-	}
-
-	PRINT("WSAStartup successful!");
-
-	mySocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-
-	// Non Blocking
-	unsigned long mode = 1;
-	ioctlsocket(mySocket, FIONBIO, &mode);
-
-	int bufferSize = SOCKET_BUFFER_SIZE;
-	setsockopt(mySocket, SOL_SOCKET, SO_RCVBUF, (char*)&bufferSize, sizeof(bufferSize));
-	setsockopt(mySocket, SOL_SOCKET, SO_SNDBUF, (char*)&bufferSize, sizeof(bufferSize));
-
-	myMessageManager.Init(mySocket);
+	sf::Socket::Status error = mySocket.bind(aPort);
+	mySocket.setBlocking(false);
+	myIsActive = true;
 }
 
 void Network::CConnectionBase::Update()
 {
-	myReceivedBuffer.clear();
-
-	sockaddr_in from;
-	int fromLength = sizeof(from);
-
-	char buffer[MAX_BUFFER_SIZE];
-	ZeroMemory(buffer, MAX_BUFFER_SIZE);
-	Sleep(1);
-
-	while (recvfrom(mySocket, buffer, MAX_BUFFER_SIZE, 0, (sockaddr*)&from, &fromLength) != SOCKET_ERROR)
+	if (myIsActive)
 	{
-		myReceivedBuffer.push_back(SReceivedMessage());
-		memcpy(&myReceivedBuffer.back().myBuffer, &buffer, MAX_BUFFER_SIZE);
-		myReceivedBuffer.back().myFromAddress = from;
-	}
+		myReceivedBuffer.clear();
 
-	mySentThisSecond += myMessageManager.Flush();
-	mySentTimer += CTime::GetInstance().GetDeltaTime();
+		sf::Packet packet;
+		sf::IpAddress from;
+		unsigned short port = 0;
 
-	if (mySentTimer >= 1.0f)
-	{
-		mySentTimer = 0.f;
-		PRINT(std::to_string(static_cast<float>(mySentThisSecond) / 1000.f) + "kb sent this second.");
-		mySentThisSecond = 0;
+		while (mySocket.receive(packet, from, port) == sf::Socket::AnyPort)
+		{
+			myReceivedBuffer.push_back(SReceivedMessage());
+			myReceivedBuffer.back().myPacket = packet;
+			myReceivedBuffer.back().myFromAddress = from;
+			myReceivedBuffer.back().myFromPort = port;
+		}
+
+		mySentThisSecond += myMessageManager.Flush();
+		mySentTimer += CTime::GetInstance().GetDeltaTime();
+
+		if (mySentTimer >= 1.0f)
+		{
+			mySentTimer = 0.f;
+			//PRINT SENT THIS SECOND
+			mySentThisSecond = 0;
+		}
 	}
 }
 
 void Network::CConnectionBase::Stop()
 {
+	myIsActive = false;
+}
+
+bool Network::CConnectionBase::IsActive()
+{
+	return myIsActive;
+}
+
+Network::CNetMessageManager & Network::CConnectionBase::GetMessageManager()
+{
+	return myMessageManager;
 }

@@ -1,7 +1,6 @@
-#pragma once
-#include "ConnectionBase.h"
-#include <unordered_map>
-#include "TimedEvent.h"
+#pragma once 
+#include "ConnectionBase.h" 
+#include <unordered_map> 
 
 namespace Network
 {
@@ -16,28 +15,23 @@ namespace Network
 		void Stop() override;
 
 		void SetName(const std::string& aName);
+		void SendMessage(const std::string& aMessage);
 
 	private:
-
 		struct SClient
 		{
 			std::string myName;
-			unsigned short myID;
+			int myID;
 			float myTimeSinceLatestPing;
 			bool myConnected;
 		};
 
-		void AddClient(sockaddr_in aAddress, const std::string& aName);
-		void ReceivePing(unsigned long aID);
+		void AddClient(int aAddress, int aPort, const std::string& aName);
 		void HandleClients();
-		void DisconnectClient(SClient& aClientToDisconnect);
-
-		unsigned long ConvertAddressToID(const sockaddr_in& aAddress);
+		void DisconnectClient(SClient& aClient);
 
 		std::string myName;
-
-		sockaddr_in myLocalAddress;
-
-		std::unordered_map<unsigned long, SClient> myClients;
+		sf::IpAddress myAddress;
+		std::unordered_map<int, SClient> myClients;
 	};
 }

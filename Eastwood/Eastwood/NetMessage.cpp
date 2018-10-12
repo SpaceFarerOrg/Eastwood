@@ -1,52 +1,40 @@
 #include "NetMessage.h"
 
-namespace Network
+void Network::CNetMessage::Create(const SBaseData & aData)
 {
-	void CNetMessage::Create(SNetMessageData aData)
-	{
-		myData = aData;
-	}
+	myBaseData = aData;
+}
 
-	SNetMessageData& CNetMessage::GetBaseData()
-	{
-		return myData;
-	}
+void Network::CNetMessage::Pack()
+{
+	myPacket << static_cast<short>(myBaseData.myType);
+	myPacket << static_cast<short>(myBaseData.myType);
+	myPacket << myBaseData.myTimeStamp;
+	myPacket << myBaseData.myID;
+	myPacket << myBaseData.myTargetID;
+}
 
-	void CNetMessage::Pack()
-	{
-		Serialize();
-	}
+void Network::CNetMessage::Unpack()
+{
+	short tempType;
+	myPacket >> tempType;
+	myBaseData.myType = static_cast<ENetMessageType>(tempType);
+	myPacket >> myBaseData.myTimeStamp;
+	myPacket >> myBaseData.myID;
+	myPacket >> myBaseData.myTargetID;
+}
 
-	void CNetMessage::Unpack()
-	{
-		Deserialize();
-	}
+Network::SBaseData & Network::CNetMessage::GetBaseData()
+{
+	return myBaseData;
+}
 
-	void CNetMessage::ReceiveData(char * aData, short aSize)
-	{
-		myBuffer.resize(aSize);
-		memcpy(&myBuffer[0], aData, aSize);
-	}
+sf::Packet & Network::CNetMessage::GetPacket()
+{
+	return myPacket;
+}
 
-	size_t CNetMessage::GetBufferSize()
-	{
-		return sizeof(myBuffer);
-	}
-
-	char* CNetMessage::GetBufferStart()
-	{
-		return &myBuffer[0];
-	}
-
-	void CNetMessage::Serialize()
-	{
-		SERIALIZE(myBuffer, myData.myType);
-		SERIALIZE(myBuffer, myData.myID);
-	}
-
-	void CNetMessage::Deserialize()
-	{
-		DESERIALIZE(myBuffer, myData.myType);
-		DESERIALIZE(myBuffer, myData.myID);
-	}
+void Network::CNetMessage::ReceivePacket(const sf::Packet & aPacket)
+{
+	myPacket = aPacket;
 }

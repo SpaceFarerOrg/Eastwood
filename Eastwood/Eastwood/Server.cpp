@@ -1,63 +1,40 @@
 #include "Server.h"
-#include <string>
 #include "Time.h"
+#include "NetMessageString.h"
 
 void Network::CServer::Start(unsigned int aPort)
 {
-
-	PRINT("Starting up server...");
 	CConnectionBase::Start(aPort);
-
-	unsigned short port = aPort;
-	myLocalAddress.sin_family = AF_INET;
-	myLocalAddress.sin_port = htons(port);
-	myLocalAddress.sin_addr.s_addr = INADDR_ANY;
-
-	int error = bind(mySocket, (sockaddr*)&myLocalAddress, sizeof(myLocalAddress));
-	if (error != 0)
-	{
-		PRINT("Binding of local address failed with error code: " + std::to_string(error));
-		return;
-	}
-
-	PRINT("Listening for new connections on port: " + std::to_string(port));
 }
 
 void Network::CServer::Update()
 {
 	CConnectionBase::Update();
-
 	float dt = CTime::GetInstance().GetDeltaTime();
 
 	HandleClients();
 
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{
-		unsigned long senderID = ConvertAddressToID(rec.myFromAddress);
-		char* buffer = rec.myBuffer;
-		ENetMessageType type = static_cast<ENetMessageType>(buffer[0]);
+		short type;
+		rec.myPacket >> type;
 
-		switch (type)
+		switch (static_cast<ENetMessageType>(type))
 		{
-		case Network::ENetMessageType::Chat:
+		case ENetMessageType::Connect:
 		{
-			CNetMessageChat msg;
-			msg.ReceiveData(buffer, sizeof(SNetMessageChatData));
+			CNetMessageString msg;
+			msg.ReceivePacket(rec.myPacket);
 			msg.Unpack();
-			PRINT("Received: " + msg.GetData().myMessage.ToString());
+			AddClient(rec.myFromAddress.toInteger(), rec.myFromPort, msg.GetString());
 			break;
 		}
-		case Network::ENetMessageType::Ping:
+		case ENetMessageType::Chat:
 		{
-			ReceivePing(senderID);
-			break;
-		}
-		case Network::ENetMessageType::Connect:
-		{
-			CNetMessageConnect msg;
-			msg.ReceiveData(buffer, sizeof(SNetMessageConnectData));
+			CNetMessageString msg;
+			msg.ReceivePacket(rec.myPacket);
 			msg.Unpack();
-			AddClient(rec.myFromAddress, msg.GetData().myName.ToString());
+			PRINT("Received: " << msg.GetString());
 			break;
 		}
 		}
@@ -74,102 +51,41 @@ void Network::CServer::SetName(const std::string & aName)
 	myName = aName;
 }
 
-void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName)
+void Network::CServer::SendMessage(const std::string & aMessage)
 {
-	unsigned long ID = aAddress.sin_addr.S_un.S_addr;
+	Network::SStringData msg;
+	msg.myString = aMessage;
+	msg.myTargetID = 0;
+	msg.myType = Network::ENetMessageType::Chat;
+	msg.myTimeStamp = 1337;
+	msg.myID = 777;
 
-	if (myClients.find(ID) == myClients.end())
-	{
-		SClient newClient;
-		newClient.myName = aName;
-		newClient.myID = myClients.size();
-		newClient.myTimeSinceLatestPing = 0;
-		newClient.myConnected = true;
-
-		myClients.insert(std::make_pair(ID, newClient));
-		PRINT(aName + " connected!");
-
-		SNetMessageConnectData response;
-		response.myName = "Server";
-		response.myTargetID = newClient.myID;
-		
-		myMessageManager.CreateMessage<CNetMessageConnect>(response);
-		myMessageManager.AddReceiver(aAddress);
-
-		for (auto& client : myClients)
-		{
-			if (client.first == ID)
-				continue;
-
-			// New to existing
-			SNetMessageData newPlayerMessage;
-			newPlayerMessage.myTargetID = client.second.myID;
-			newPlayerMessage.myType = ENetMessageType::NewPlayer;
-			newPlayerMessage.myID = newClient.myID;
-
-			myMessageManager.CreateMessage<CNetMessage>(newPlayerMessage);
-
-			// Existing to new
-			newPlayerMessage.myTargetID = newClient.myID;
-			newPlayerMessage.myType = ENetMessageType::NewPlayer;
-			newPlayerMessage.myID = client.second.myID;
-
-			myMessageManager.CreateMessage<CNetMessage>(newPlayerMessage);
-		}
-	}
-	else if (myClients[ID].myConnected == false)
-	{
-		myClients[ID].myConnected = true;
-		myClients[ID].myTimeSinceLatestPing = 0;
-		PRINT(aName + " reconnected!");
-	}
-	else
-	{
-		PRINT("Tried to add an already existing client.");
-	}
+	myMessageManager.CreateMessage<CNetMessageString>(msg);
 }
 
-void Network::CServer::ReceivePing(unsigned long aID)
+void Network::CServer::AddClient(int aAddress, int aPort, const std::string& aName)
 {
-	SClient& client = myClients[aID];
-	client.myTimeSinceLatestPing = 0.f;
-	if (client.myConnected == false)
-	{
-		client.myConnected = true;
-		PRINT(client.myName + " reconnected!");
-	}
-	else
-	{
-		PRINT("Received ping from " + std::to_string(myClients[aID].myID));
-	}
+	SClient nClient;
+	nClient.myConnected = true;
+	nClient.myID = aAddress;
+	nClient.myName = aName;
+	nClient.myTimeSinceLatestPing = 0.f;
+
+	myClients.insert(std::make_pair(aAddress, nClient));
+	myMessageManager.AddReceiver(sf::IpAddress(aAddress), aPort);
+
+	PRINT("Client " << aName << " connected!");
+
+	SBaseData response;
+	response.myTargetID = nClient.myID;
+	response.myType = ENetMessageType::Connect;
+	myMessageManager.CreateMessage<CNetMessage>(response);
 }
 
 void Network::CServer::HandleClients()
 {
-	float dt = CTime::GetInstance().GetDeltaTime();
-
-	for (auto& clientPair : myClients)
-	{
-		if (clientPair.second.myConnected == false)
-			continue;
-
-		clientPair.second.myTimeSinceLatestPing += dt;
-
-		if (clientPair.second.myTimeSinceLatestPing > PING_TIMEOUT)
-		{
-			DisconnectClient(clientPair.second);
-		}
-	}
 }
 
-void Network::CServer::DisconnectClient(SClient & aClientToDisconnect)
+void Network::CServer::DisconnectClient(SClient & aClient)
 {
-	aClientToDisconnect.myConnected = false;
-
-	PRINT("Client " + std::to_string(aClientToDisconnect.myID) + " disconnected.");
-}
-
-unsigned long Network::CServer::ConvertAddressToID(const sockaddr_in & aAddress)
-{
-	return aAddress.sin_addr.S_un.S_addr;
 }

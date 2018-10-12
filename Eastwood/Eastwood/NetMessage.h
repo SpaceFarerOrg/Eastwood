@@ -1,43 +1,33 @@
 #pragma once
-#include "SerializeHelper.h"
-#include "NetMessageTypes.h"
-#include <vector>
+#include "CommonNetworkIncludes.h"
 
-
-#define SERIALIZE(aStream, aType) serialize(aType, aStream)
-#define DESERIALIZE(aStream, aType) aType = deserialize<decltype(aType)>(aStream)
+#include "SFML/Network/Packet.hpp"
 
 namespace Network
 {
-	struct SNetMessageData
+	struct SBaseData
 	{
-		ENetMessageType myType = ENetMessageType::Base;
-		unsigned int myTimeStamp = 0;
-		short myID = 0;
-		short myTargetID = 0;
+		ENetMessageType myType;
+		unsigned int myTimeStamp;
+		unsigned int myID;
+		int myTargetID;
 	};
 
 	class CNetMessage
 	{
 	public:
 
-		void Create(SNetMessageData aData);
-		SNetMessageData& GetBaseData();
+		void Create(const SBaseData& aData);
 
-		void Pack();
-		void Unpack();
+		virtual void Pack();
+		virtual void Unpack();
 
-		void ReceiveData(char* aData, short aSize);
-
-		size_t GetBufferSize();
-		char* GetBufferStart();
+		SBaseData& GetBaseData();
+		sf::Packet& GetPacket();
+		void ReceivePacket(const sf::Packet& aPacket);
 
 	protected:
-
-		virtual void Serialize();
-		virtual void Deserialize();
-
-		std::vector<char> myBuffer;
-		SNetMessageData myData;
+		sf::Packet myPacket;
+		SBaseData myBaseData;
 	};
 }

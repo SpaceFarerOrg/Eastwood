@@ -3,6 +3,8 @@
 #include "Graphics/Text.hpp"
 #include "Graphics/RectangleShape.hpp"
 
+#include <unordered_set>
+
 class CUITextInput : public CUIElement
 {
 public:
@@ -17,10 +19,13 @@ public:
 	void Clear();
 
 private:
+	void InputString(const std::string& aString);
+
 	float myCaretTimer;
 	bool myCaretIsVisible;
 	sf::Font myFont;
 	sf::Text myText;
 	sf::RectangleShape myCaret;
 	sf::RectangleShape myBox;
+	std::unordered_set<char> myAllowedCharacters;
 };

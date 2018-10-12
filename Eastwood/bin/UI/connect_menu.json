@@ -17,6 +17,7 @@
         "height": 64,
         "eventName": "",
         "defaultText": "Name",
+        "type": "standard",
         "elements": []
       },
       {
@@ -27,7 +28,8 @@
         "width": 500,
         "height": 64,
         "eventName": "",
-        "defaultText": "IP",
+        "defaultText": "85.235.23.240",
+        "type": "ip_input",
         "elements": []
       },
       {
@@ -38,7 +40,8 @@
         "width": 500,
         "height": 64,
         "eventName": "",
-        "defaultText": "Port",
+        "defaultText": "54000",
+        "type": "integers",
         "elements": []
       },
       {

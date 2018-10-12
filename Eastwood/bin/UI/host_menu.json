@@ -16,7 +16,8 @@
         "width": 500,
         "height": 64,
         "eventName": "",
-        "defaultText": "Name",
+        "defaultText": "Server",
+        "type": "standard",
         "elements": []
       },
       {
@@ -27,7 +28,8 @@
         "width": 500,
         "height": 64,
         "eventName": "",
-        "defaultText": "Port",
+        "defaultText": "54000",
+        "type": "integers",
         "elements": []
       },
       {

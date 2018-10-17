@@ -1,4 +1,4 @@
-#include "ControlCompent.h"
+#include "ControlComponent.h"
 #include "InputManager.h"
 #include "CommonMath.h"
 

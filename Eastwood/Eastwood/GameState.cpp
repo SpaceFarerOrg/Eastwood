@@ -29,10 +29,16 @@ void CGameState::Init()
 	SetupNetworking();
 
 	myTestTexture.loadFromFile("playerShip.png");
+
+	CMainSingleton::GetRenderer().SetDimensions(1600, 800);
+
+	myPlayer.Init();
 }
 
 void CGameState::Update(float dt)
 {
+	myPlayer.Update(dt);
+
 	myServer.Update();
 	myClient.Update();
 }
@@ -40,6 +46,8 @@ void CGameState::Update(float dt)
 void CGameState::Render(sf::RenderWindow * aRenderWindow)
 {
 	CRenderer& renderer = CMainSingleton::GetRenderer();
+
+	myPlayer.Render();
 
 	sf::Sprite renderedImage = renderer.RunRendering();
 	aRenderWindow->draw(renderedImage);

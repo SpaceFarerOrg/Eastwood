@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "MainSingelton.h"
+#include "Renderer.h"
 
 CPlayer::CPlayer()
 {
@@ -24,6 +26,7 @@ void CPlayer::Update(float dt)
 
 void CPlayer::Render()
 {
+	CMainSingleton::GetRenderer().PushRenderCommand(mySprite);
 }
 
 void CPlayer::UpdateRenderable()

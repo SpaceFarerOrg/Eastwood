@@ -41,6 +41,9 @@ sf::Vector2f Math::GetNormalized(const sf::Vector2f & aVector)
 void Math::Normalize(sf::Vector2f & aVector)
 {
 	float length = Length(aVector);
-	aVector.x /= length;
-	aVector.y /= length;
+	if (length != 0)
+	{
+		aVector.x /= length;
+		aVector.y /= length;
+	}
 }

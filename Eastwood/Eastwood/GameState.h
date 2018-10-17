@@ -3,8 +3,9 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
 #include "SFML/Graphics/Texture.hpp"
-#include "CommonNetworkIncludes.h"
+#include "Player.h"
 
+#include "CommonNetworkIncludes.h"
 #include "Server.h"
 #include "Client.h"
 
@@ -34,6 +35,8 @@ private:
 
 	sf::Texture myTestTexture;
 	CObjectManager myObjectManager;
+
+	CPlayer myPlayer;
 
 	Network::CClient myClient;
 	Network::CServer myServer;

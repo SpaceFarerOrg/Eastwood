@@ -29,21 +29,15 @@ void CGameState::Init()
 
 	myTestTexture.loadFromFile("playerShip.png");
 
-	myObjectManager.Initialize(512);
-
 	SRenderableComponentParam renderableCompData;
 	renderableCompData.myRenderer = &myRenderer;
 	renderableCompData.myTexture = &myTestTexture;
-
-	myObjectManager.BeginPlay();
 }
 
 void CGameState::Update(float dt)
 {
 	myServer.Update();
 	myClient.Update();
-
-	myObjectManager.Tick(dt);
 }
 
 void CGameState::Render(sf::RenderWindow * aRenderWindow)

@@ -46,6 +46,9 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{b359c666-e4ae-4cb6-a8ed-901820956207}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{aab90e47-d55d-49dc-a2b1-5210b62d9ed4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -172,6 +175,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlCompent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MainSingelton.cpp">
@@ -319,6 +328,12 @@
     </ClInclude>
     <ClInclude Include="Server.h">
       <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="MainSingelton.h">
       <Filter>Header Files</Filter>

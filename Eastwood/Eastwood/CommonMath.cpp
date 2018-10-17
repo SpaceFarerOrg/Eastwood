@@ -30,3 +30,17 @@ float Math::Lerp(float aLerpFrom, float aLerpTo, float aInterpolation)
 {
 	return (aLerpFrom + aInterpolation * (aLerpTo - aLerpFrom));
 }
+
+sf::Vector2f Math::GetNormalized(const sf::Vector2f & aVector)
+{
+	sf::Vector2f rv = aVector;
+	Normalize(rv);
+	return rv;
+}
+
+void Math::Normalize(sf::Vector2f & aVector)
+{
+	float length = Length(aVector);
+	aVector.x /= length;
+	aVector.y /= length;
+}

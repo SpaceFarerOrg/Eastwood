@@ -34,6 +34,9 @@ namespace Math
 
 	float Lerp(float aLerpFrom, float aLerpTo, float aInterpolation);
 
+	sf::Vector2f GetNormalized(const sf::Vector2f& aVector);
+	void Normalize(sf::Vector2f& aVector);
+
 	//static SColor Lerp(SColor aLerpFrom, SColor aLerpTo, float aInterpolation)
 	//{
 	//	SColor rv;

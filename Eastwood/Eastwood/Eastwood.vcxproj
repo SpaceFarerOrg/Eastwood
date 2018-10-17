@@ -141,6 +141,7 @@
     <ClCompile Include="CommonMath.cpp" />
     <ClCompile Include="ConnectionBase.cpp" />
     <ClCompile Include="ConnectState.cpp" />
+    <ClCompile Include="ControlCompent.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HostState.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="NetMessageManager.cpp" />
     <ClCompile Include="NetMessageString.cpp" />
     <ClCompile Include="NetMessageVector2.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PointCollider.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="RenderableComponent.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="ComponentRuntimeDataDefines.h" />
     <ClInclude Include="ConnectionBase.h" />
     <ClInclude Include="ConnectState.h" />
+    <ClInclude Include="ControlComponent.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HostState.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyCodes.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PointCollider.h" />
     <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="RenderableComponent.h" />

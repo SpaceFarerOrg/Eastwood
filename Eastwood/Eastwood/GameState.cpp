@@ -3,7 +3,8 @@
 #include <iostream>
 #include "MenuState.h"
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "RenderableComponent.h"
+#include "Renderer.h"
+#include "MainSingelton.h"
 
 CGameState::CGameState()
 {
@@ -28,10 +29,6 @@ void CGameState::Init()
 	SetupNetworking();
 
 	myTestTexture.loadFromFile("playerShip.png");
-
-	SRenderableComponentParam renderableCompData;
-	renderableCompData.myRenderer = &myRenderer;
-	renderableCompData.myTexture = &myTestTexture;
 }
 
 void CGameState::Update(float dt)
@@ -42,15 +39,12 @@ void CGameState::Update(float dt)
 
 void CGameState::Render(sf::RenderWindow * aRenderWindow)
 {
-	if (!myRenderer.IsCreated())
-	{
-		myRenderer.Create(aRenderWindow->getSize().x, aRenderWindow->getSize().y);
-	}
+	CRenderer& renderer = CMainSingleton::GetRenderer();
 
-	sf::Sprite renderedImage = myRenderer.RunRendering();
+	sf::Sprite renderedImage = renderer.RunRendering();
 	aRenderWindow->draw(renderedImage);
 
-	myRenderer.Clear();
+	renderer.Clear();
 }
 
 void CGameState::SetupNetworking()

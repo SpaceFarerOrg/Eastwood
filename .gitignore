@@ -92,3 +92,5 @@ Eastwood/trash/vc141\.pdb
 *.config
 
 Eastwood/trash/Eastwood\.tlog/
+
+Eastwood/trash/Launcher_Debug\.Build\.CppClean\.log

@@ -149,6 +149,7 @@
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainSingelton.cpp" />
     <ClCompile Include="MemoryPool.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="NetMessage.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="HostState.h" />
+    <ClInclude Include="MainSingelton.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="NetMessage.h" />
     <ClInclude Include="NetMessageManager.h" />

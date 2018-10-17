@@ -2,14 +2,12 @@
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 
-CRenderer::CRenderer()
-	: myIsCreated(false)
+CRenderer::CRenderer(const CMainSingleton& aMainSingleton)
 {
 }
 
-void CRenderer::Create(unsigned int aW, unsigned int aH)
+void CRenderer::SetDimensions(unsigned int aW, unsigned int aH)
 {
-	myIsCreated = true;
 	myRenderTexture.create(aW, aH);
 }
 
@@ -40,7 +38,3 @@ void CRenderer::Clear()
 	myRenderTexture.clear();
 }
 
-bool CRenderer::IsCreated() const
-{
-	return myIsCreated;
-}

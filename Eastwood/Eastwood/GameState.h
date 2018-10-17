@@ -1,7 +1,6 @@
 #pragma once
 #include "State.h"
 #include "ObjectManager.h"
-#include "Renderer.h"
 #include "GameObject.h"
 #include "SFML/Graphics/Texture.hpp"
 #include "CommonNetworkIncludes.h"
@@ -35,7 +34,6 @@ private:
 
 	sf::Texture myTestTexture;
 	CObjectManager myObjectManager;
-	CRenderer myRenderer;
 
 	Network::CClient myClient;
 	Network::CServer myServer;

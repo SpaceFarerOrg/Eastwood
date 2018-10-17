@@ -9,20 +9,21 @@ namespace sf
 	class RenderTexture;
 }
 
+class CMainSingleton;
+
 class CRenderer
 {
 public:
-	CRenderer();
+	CRenderer() = delete;
+	CRenderer(const CMainSingleton& aMainSingleton); //Takes a main singleton to ensure no construction is done outside of it
 
-	void Create(unsigned int aW, unsigned int aH);
+	void SetDimensions(unsigned int aW, unsigned int aH);
 
 	void PushRenderCommand(sf::Drawable& aRenderable);
 	sf::Sprite RunRendering();
 	void Clear();
 
-	bool IsCreated() const;
 private:
-	bool myIsCreated;
 	sf::RenderTexture myRenderTexture;
 	std::vector<sf::Drawable*> myRenderCommands;
 };

@@ -192,6 +192,7 @@
     <ClInclude Include="ControlComponent.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ClientData.h" />
     <ClInclude Include="HostState.h" />
     <ClInclude Include="MainSingelton.h" />
     <ClInclude Include="MemoryPool.h" />

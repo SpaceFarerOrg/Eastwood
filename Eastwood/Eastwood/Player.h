@@ -16,6 +16,8 @@ public:
 	void Update(float dt);
 	void Render();
 
+	sf::Transformable& GetTransform();
+
 private:
 
 	void UpdateRenderable();

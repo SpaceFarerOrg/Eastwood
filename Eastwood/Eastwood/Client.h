@@ -1,6 +1,8 @@
 #pragma once
 #include "ConnectionBase.h"
 
+class CGameState;
+
 namespace Network
 {
 	class CClient : public CConnectionBase
@@ -15,10 +17,16 @@ namespace Network
 
 		void TryToConnect(const std::string& aMyName, sf::IpAddress aAddress, unsigned int aPort);
 
+		void BindGame(CGameState* aGame);
+		int GetID();
+
 	private:
 
 		sf::IpAddress myLocalAddress;
+		sf::IpAddress myPublicAddress;
 		sf::IpAddress myServerAddress;
 		unsigned int myServerPort;
+
+		CGameState* myGame;
 	};
 }

@@ -5,6 +5,7 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "Renderer.h"
 #include "MainSingelton.h"
+#include "NetMessages.h"
 
 CGameState::CGameState()
 {
@@ -30,7 +31,7 @@ void CGameState::Init()
 
 	myTestTexture.loadFromFile("playerShip.png");
 
-	CMainSingleton::GetRenderer().SetDimensions(1600, 800);
+	CMainSingleton::GetRenderer().SetDimensions(1600, 900);
 
 	myPlayer.Init();
 }
@@ -39,8 +40,10 @@ void CGameState::Update(float dt)
 {
 	myPlayer.Update(dt);
 
-	myServer.Update();
-	myClient.Update();
+	if (myLaunchData.myNetworkState != Network::ENetworkState::Singleplayer)
+	{
+		HandleNetworking(dt);
+	}
 }
 
 void CGameState::Render(sf::RenderWindow * aRenderWindow)
@@ -49,10 +52,29 @@ void CGameState::Render(sf::RenderWindow * aRenderWindow)
 
 	myPlayer.Render();
 
+	for (auto& other : myOtherPlayers)
+	{
+		other.second.Render();
+	}
+
 	sf::Sprite renderedImage = renderer.RunRendering();
 	aRenderWindow->draw(renderedImage);
 
 	renderer.Clear();
+}
+
+void CGameState::AddPlayer(int aID)
+{
+	myOtherPlayers[aID] = CPlayer();
+	myOtherPlayers[aID].Init();
+}
+
+void CGameState::UpdateOtherPlayer(int aID, const sf::Vector2f & aPosition)
+{
+	CPlayer& player = myOtherPlayers[aID];
+	player.GetTransform().setPosition(aPosition);
+	player.Update(0);
+	
 }
 
 void CGameState::SetupNetworking()
@@ -60,6 +82,7 @@ void CGameState::SetupNetworking()
 	if (myLaunchData.myNetworkState == Network::ENetworkState::Singleplayer)
 		return;
 
+	myClient.BindGame(this);
 	if (myLaunchData.myNetworkState == Network::ENetworkState::Server)
 	{
 		myServer.SetName(myLaunchData.myName);
@@ -73,5 +96,27 @@ void CGameState::SetupNetworking()
 		myClient.TryToConnect(myLaunchData.myName, myLaunchData.myAddressToConnectTo, myLaunchData.myPort);
 	}
 
+	myPositionSender.Init(CTimedEvent::EType::Repeat, 1.f / 60.f, [this]() {
+		Network::SVector2Data data;
+		data.myVector2 = myPlayer.GetTransform().getPosition();
+		data.myTargetID = 0;
+		data.myType = Network::ENetMessageType::PlayerPos;
+		data.myID = myClient.GetID();
+		myClient.GetMessageManager().CreateMessage<Network::CNetMessageVector2>(data);
+	});
+	myPositionSender.Start();
+
 	//CComponent::BindNetMessageManager(myClient.GetMessageManager());
+}
+
+void CGameState::HandleNetworking(float dt)
+{
+	myPositionSender.Update(dt);
+
+	myClient.Update();
+
+	if (myLaunchData.myNetworkState == Network::ENetworkState::Server)
+	{
+		myServer.Update();
+	}
 }

@@ -9,7 +9,7 @@ namespace Network
 	{
 		ENetMessageType myType;
 		unsigned int myTimeStamp;
-		unsigned int myID;
+		int myID;
 		int myTargetID;
 	};
 

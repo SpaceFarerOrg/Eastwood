@@ -1,9 +1,12 @@
 #include "Client.h" 
 #include "NetMessages.h" 
+#include "GameState.h"
 
 void Network::CClient::Start(unsigned int aPort)
 {
 	CConnectionBase::Start(aPort);
+	myPublicAddress = sf::IpAddress::getPublicAddress();
+	myLocalAddress = sf::IpAddress::getLocalAddress();
 }
 
 void Network::CClient::Update()
@@ -33,6 +36,24 @@ void Network::CClient::Update()
 			PRINT("Connected to server. Congratulations!");
 			break;
 		}
+		case ENetMessageType::PlayerPos:
+		{
+			CNetMessageVector2 msg;
+			msg.ReceivePacket(rec.myPacket);
+			msg.Unpack();
+			myGame->UpdateOtherPlayer(msg.GetBaseData().myID, msg.GetVector2());
+			PRINT("GOT POSITION: " << msg.GetVector2().x);
+			break;
+		}
+		case ENetMessageType::NewPlayer:
+		{
+			CNetMessage msg;
+			msg.ReceivePacket(rec.myPacket);
+			msg.Unpack();
+			PRINT("Player joined!");
+			myGame->AddPlayer(msg.GetBaseData().myID);
+			break;
+		}
 		}
 	}
 }
@@ -55,4 +76,14 @@ void Network::CClient::TryToConnect(const std::string& aMyName, sf::IpAddress aA
 	connectMsg.myString = aMyName;
 
 	myMessageManager.CreateMessage<CNetMessageString>(connectMsg);
+}
+
+void Network::CClient::BindGame(CGameState * aGame)
+{
+	myGame = aGame;
+}
+
+int Network::CClient::GetID()
+{
+	return myPublicAddress.toInteger();
 }

@@ -29,6 +29,11 @@ void CPlayer::Render()
 	CMainSingleton::GetRenderer().PushRenderCommand(mySprite);
 }
 
+sf::Transformable & CPlayer::GetTransform()
+{
+	return myTransform;
+}
+
 void CPlayer::UpdateRenderable()
 {
 	mySprite.setPosition(myTransform.getPosition());

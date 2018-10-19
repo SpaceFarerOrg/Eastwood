@@ -1,6 +1,8 @@
 #pragma once 
 #include "ConnectionBase.h" 
 #include <unordered_map> 
+#include "ClientData.h"
+#include "TimedEvent.h"
 
 namespace Network
 {
@@ -24,6 +26,9 @@ namespace Network
 			int myID;
 			float myTimeSinceLatestPing;
 			bool myConnected;
+
+			// Put relevant game data in this
+			SClientData myData;
 		};
 
 		void AddClient(int aAddress, int aPort, const std::string& aName);
@@ -33,5 +38,7 @@ namespace Network
 		std::string myName;
 		sf::IpAddress myAddress;
 		std::unordered_map<int, SClient> myClients;
+
+		CTimedEvent myPositionSender;
 	};
 }

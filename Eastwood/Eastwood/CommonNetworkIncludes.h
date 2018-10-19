@@ -17,7 +17,9 @@ namespace Network
 	{
 		Chat,
 		Ping,
-		Connect
+		Connect,
+		PlayerPos,
+		NewPlayer
 	};
 
 	enum class ENetworkState

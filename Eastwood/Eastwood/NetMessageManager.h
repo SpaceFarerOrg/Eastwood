@@ -37,6 +37,10 @@ namespace Network
 	inline void CNetMessageManager::CreateMessage(TypeData & aMessageData)
 	{
 		Type* newMessage = new Type();
+
+		if (aMessageData.myTargetID == 0)
+			aMessageData.myTargetID = myAddresses.begin()->first;
+
 		newMessage->Create(aMessageData);
 
 		myMessages.push_back(newMessage);

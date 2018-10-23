@@ -134,7 +134,6 @@
     <ClCompile Include="..\External\JSON\FileDialog.cpp" />
     <ClCompile Include="..\External\JSON\JsonDocument.cpp" />
     <ClCompile Include="..\External\JSON\pugixml.cpp" />
-    <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -184,7 +183,6 @@
     <ClInclude Include="..\External\JSON\JsonDocument.h" />
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
     <ClInclude Include="..\External\JSON\pugixml.hpp" />
-    <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CommonNetworkIncludes.h" />
     <ClInclude Include="Component.h" />

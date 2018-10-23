@@ -78,7 +78,6 @@ void CGameState::UpdateOtherPlayer(int aID, const sf::Vector2f & aPosition)
 	CPlayer& player = myOtherPlayers[aID];
 	player.GetTransform().setPosition(aPosition);
 	player.Update(0);
-	
 }
 
 void CGameState::SetupNetworking()

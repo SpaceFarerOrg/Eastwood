@@ -10,6 +10,8 @@
 #include "Server.h"
 #include "Client.h"
 
+#include "WorldZone.h"
+
 class CGameState : public CState
 {
 public:
@@ -49,6 +51,8 @@ private:
 
 	Network::CClient myClient;
 	Network::CServer myServer;
+
+	CWorldZone myWorldZone;
 
 	CTimedEvent myPositionSender;
 };

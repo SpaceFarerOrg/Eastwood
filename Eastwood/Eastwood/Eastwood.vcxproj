@@ -134,6 +134,7 @@
     <ClCompile Include="..\External\JSON\FileDialog.cpp" />
     <ClCompile Include="..\External\JSON\JsonDocument.cpp" />
     <ClCompile Include="..\External\JSON\pugixml.cpp" />
+    <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="UISprite.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="UITextInput.cpp" />
+    <ClCompile Include="WorldZone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\External\JSON\Base64.h" />
@@ -182,6 +184,7 @@
     <ClInclude Include="..\External\JSON\JsonDocument.h" />
     <ClInclude Include="..\External\JSON\pugiconfig.hpp" />
     <ClInclude Include="..\External\JSON\pugixml.hpp" />
+    <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="CommonNetworkIncludes.h" />
     <ClInclude Include="Component.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ClientData.h" />
+    <ClInclude Include="GameWorld.h" />
     <ClInclude Include="HostState.h" />
     <ClInclude Include="MainSingelton.h" />
     <ClInclude Include="MemoryPool.h" />
@@ -228,6 +232,7 @@
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="UISprite.h" />
     <ClInclude Include="UITextInput.h" />
+    <ClInclude Include="WorldZone.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

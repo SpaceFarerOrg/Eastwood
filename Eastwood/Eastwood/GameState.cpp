@@ -34,6 +34,9 @@ void CGameState::Init()
 	CMainSingleton::GetRenderer().SetDimensions(1600, 900);
 
 	myPlayer.Init();
+
+	myWorldZone.Create();
+
 }
 
 void CGameState::Update(float dt)
@@ -50,6 +53,7 @@ void CGameState::Render(sf::RenderWindow * aRenderWindow)
 {
 	CRenderer& renderer = CMainSingleton::GetRenderer();
 
+	myWorldZone.Render();
 	myPlayer.Render();
 
 	for (auto& other : myOtherPlayers)

@@ -30,7 +30,6 @@ void CPlayer::Update(float dt)
 
 	myAccelerationY += 50.f / 60.f;
 	movement.y = myAccelerationY;
-	std::cout << (myAccelerationY) << std::endl;
 	myTransform.move(movement);
 
 	if (GetTransform().getPosition().y > 400.f)

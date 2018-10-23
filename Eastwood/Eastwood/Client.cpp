@@ -42,6 +42,7 @@ void Network::CClient::Update()
 			msg.ReceivePacket(rec.myPacket);
 			msg.Unpack();
 			myGame->UpdateOtherPlayer(msg.GetBaseData().myID, msg.GetVector2());
+			PRINT("GOT POSITION: " << msg.GetVector2().x);
 			break;
 		}
 		case ENetMessageType::NewPlayer:

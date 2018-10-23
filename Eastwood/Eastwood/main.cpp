@@ -26,6 +26,8 @@ int main()
 	stateStack.Init(8);
 	stateStack.Push(new CMenuState());
 
+	window.setFramerateLimit(60); // Fix when physics
+
 	sf::Event e;
 	while (window.isOpen())
 	{

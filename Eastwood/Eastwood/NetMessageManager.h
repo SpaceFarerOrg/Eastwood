@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include <ctime>
 
 namespace Network
 {
@@ -40,6 +41,8 @@ namespace Network
 
 		if (aMessageData.myTargetID == 0)
 			aMessageData.myTargetID = myAddresses.begin()->first;
+
+		aMessageData.myTimeStamp = static_cast<unsigned int>(std::time(nullptr));
 
 		newMessage->Create(aMessageData);
 

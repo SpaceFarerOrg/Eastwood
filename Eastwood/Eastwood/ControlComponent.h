@@ -5,5 +5,7 @@
 class CControlComponent
 {
 public:
+
+	bool ShouldJump();
 	sf::Vector2f GetDirection();
 };

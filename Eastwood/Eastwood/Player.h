@@ -20,6 +20,8 @@ public:
 
 private:
 
+	bool IsGrounded();
+	void Jump(float aForce);
 	void UpdateRenderable();
 
 	sf::Transformable myTransform;
@@ -28,4 +30,5 @@ private:
 	CControlComponent myController;
 
 	float mySpeed;
+	float myAccelerationY;
 };

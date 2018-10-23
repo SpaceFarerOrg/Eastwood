@@ -2,6 +2,11 @@
 #include "InputManager.h"
 #include "CommonMath.h"
 
+bool CControlComponent::ShouldJump()
+{
+	return CInputManager::GetInstance().IsKeyPressed(EKeyCode::Space);
+}
+
 sf::Vector2f CControlComponent::GetDirection()
 {
 	CInputManager& im = CInputManager::GetInstance();

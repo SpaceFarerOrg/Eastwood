@@ -11,16 +11,17 @@ void CRenderer::SetDimensions(unsigned int aW, unsigned int aH)
 	myRenderTexture.create(aW, aH);
 }
 
-void CRenderer::PushRenderCommand(sf::Drawable & aRenderable)
+void CRenderer::PushRenderCommand(const sf::Sprite& aSprite)
 {
-	myRenderCommands.push_back(&aRenderable);
+	myRenderCommands.push_back(aSprite);
 }
 
 sf::Sprite CRenderer::RunRendering()
 {
-	for (sf::Drawable* drawable : myRenderCommands)
+	for (sf::Sprite& sprite : myRenderCommands)
 	{
-		myRenderTexture.draw(*drawable);
+
+		myRenderTexture.draw(sprite);
 	}
 
 	myRenderCommands.clear();

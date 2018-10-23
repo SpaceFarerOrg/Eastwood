@@ -3,6 +3,8 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 
+#define CREATERENDERCOMMAND(drawable) drawable, drawable
+
 namespace sf
 {
 	class Renderable;
@@ -19,11 +21,11 @@ public:
 
 	void SetDimensions(unsigned int aW, unsigned int aH);
 
-	void PushRenderCommand(sf::Drawable& aRenderable);
+	void PushRenderCommand(const sf::Sprite& aSprite);
 	sf::Sprite RunRendering();
 	void Clear();
 
 private:
 	sf::RenderTexture myRenderTexture;
-	std::vector<sf::Drawable*> myRenderCommands;
+	std::vector<sf::Sprite> myRenderCommands;
 };

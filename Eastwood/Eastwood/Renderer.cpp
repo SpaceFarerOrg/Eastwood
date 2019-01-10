@@ -20,7 +20,6 @@ sf::Sprite CRenderer::RunRendering()
 {
 	for (sf::Sprite& sprite : myRenderCommands)
 	{
-
 		myRenderTexture.draw(sprite);
 	}
 

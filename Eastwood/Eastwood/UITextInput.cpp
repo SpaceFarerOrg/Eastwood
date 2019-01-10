@@ -29,7 +29,7 @@ void CUITextInput::Init(JsonValue aElementJson)
 
 	std::string type = aElementJson["type"].GetString();
 
-	if (type == "standard")
+	if (type == "textinput")
 	{
 		for (char c = 32; c < 126; ++c)
 		{

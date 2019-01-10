@@ -142,6 +142,7 @@
     <ClCompile Include="ConnectionBase.cpp" />
     <ClCompile Include="ConnectState.cpp" />
     <ClCompile Include="ControlCompent.cpp" />
+    <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HostState.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="ConnectionBase.h" />
     <ClInclude Include="ConnectState.h" />
     <ClInclude Include="ControlComponent.h" />
+    <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ClientData.h" />

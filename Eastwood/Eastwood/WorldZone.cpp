@@ -41,7 +41,7 @@ void CWorldZone::Render(const sf::FloatRect& aRenderRectangle)
 		sf::Sprite& relevantSprite = myMap[i] == 0 ? myAirTile : myRockTile;
 		relevantSprite.setPosition(fx, fy);
 
-		CMainSingleton::GetRenderer().PushRenderCommand(relevantSprite);
+		CMainSingleton::GetRenderer().PushRenderCommand(relevantSprite, 0);
 	}
 }
 

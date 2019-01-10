@@ -1,10 +1,12 @@
 #include "MainSingelton.h"
 
 #include "Renderer.h"
+#include "DebugDrawer.h"
 
 CMainSingleton::CMainSingleton()
 {
-	myRenderer = new CRenderer(*this);
+	myRenderer = new CRenderer();
+	myDebugDrawer = new CDebugDrawer();
 }
 
 CMainSingleton & CMainSingleton::GetInstance()
@@ -17,5 +19,10 @@ CMainSingleton & CMainSingleton::GetInstance()
 CRenderer & CMainSingleton::GetRenderer()
 {
 	return *(GetInstance().myRenderer);
+}
+
+CDebugDrawer & CMainSingleton::GetDebugDrawer()
+{
+	return *(GetInstance().myDebugDrawer);
 }
 

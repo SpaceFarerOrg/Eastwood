@@ -30,7 +30,7 @@ void CRenderableComponent::Tick(float aDT)
 
 	mySprite.setPosition(transformComponent->GetPosition());
 
-	myRendererToUse->PushRenderCommand(mySprite);
+	myRendererToUse->PushRenderCommand(mySprite, 0);
 }
 
 //-----------------------------------------------------------

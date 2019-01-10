@@ -49,6 +49,9 @@
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{aab90e47-d55d-49dc-a2b1-5210b62d9ed4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Debug">
+      <UniqueIdentifier>{abc833b8-5899-4c52-949c-ac471b6d42df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -190,6 +193,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WorldZone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -352,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="WorldZone.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDrawer.h">
+      <Filter>Header Files\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

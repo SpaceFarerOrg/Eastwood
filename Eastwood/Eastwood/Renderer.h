@@ -1,9 +1,8 @@
 #pragma once
 #include <vector>
+#include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
-
-#define CREATERENDERCOMMAND(drawable) drawable, drawable
 
 namespace sf
 {
@@ -11,21 +10,40 @@ namespace sf
 	class RenderTexture;
 }
 
-class CMainSingleton;
-
 class CRenderer
 {
+	friend class CMainSingleton;
+
 public:
-	CRenderer() = delete;
-	CRenderer(const CMainSingleton& aMainSingleton); //Takes a main singleton to ensure no construction is done outside of it
+	CRenderer();
+
+	struct SRenderCommand
+	{
+		sf::Drawable* myDrawable;
+		short myLayer;
+	};
 
 	void SetDimensions(unsigned int aW, unsigned int aH);
 
-	void PushRenderCommand(const sf::Sprite& aSprite);
+
+	template<typename T>
+	void PushRenderCommand(const T& aDrawable, short aLayer);
+
 	sf::Sprite RunRendering();
 	void Clear();
 
 private:
+
 	sf::RenderTexture myRenderTexture;
-	std::vector<sf::Sprite> myRenderCommands;
+	std::vector<SRenderCommand> myRenderCommands;
 };
+
+template<typename T>
+inline void CRenderer::PushRenderCommand(const T& aDrawable, short aLayer)
+{
+	SRenderCommand rc;
+	rc.myDrawable = new T(aDrawable);
+	rc.myLayer = aLayer;
+
+	myRenderCommands.push_back(rc);
+}

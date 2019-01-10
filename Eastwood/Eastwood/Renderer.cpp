@@ -2,7 +2,7 @@
 #include "SFML/Graphics/Drawable.hpp"
 #include "SFML/Graphics/RenderTexture.hpp"
 
-CRenderer::CRenderer(const CMainSingleton& aMainSingleton)
+CRenderer::CRenderer()
 {
 }
 
@@ -11,17 +11,11 @@ void CRenderer::SetDimensions(unsigned int aW, unsigned int aH)
 	myRenderTexture.create(aW, aH);
 }
 
-void CRenderer::PushRenderCommand(const sf::Sprite& aSprite)
-{
-	myRenderCommands.push_back(aSprite);
-}
-
 sf::Sprite CRenderer::RunRendering()
 {
-	for (sf::Sprite& sprite : myRenderCommands)
+	for (SRenderCommand& command : myRenderCommands)
 	{
-
-		myRenderTexture.draw(sprite);
+		myRenderTexture.draw(*command.myDrawable);
 	}
 
 	myRenderCommands.clear();

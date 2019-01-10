@@ -42,7 +42,7 @@ void CPlayer::Update(float dt)
 
 void CPlayer::Render()
 {
-	CMainSingleton::GetRenderer().PushRenderCommand(mySprite);
+	CMainSingleton::GetRenderer().PushRenderCommand(mySprite, 0);
 }
 
 sf::Transformable & CPlayer::GetTransform()
